@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100;200;300;400;500;600;700;800;900&family=Geist:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=PT+Serif:wght@400;700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Shantell+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <title>Featured Code Works</title>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style id="reset-base">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <style id="tokens">
+        :root {
+            --background: #0d1117;
+            --foreground: #e6edf3;
+            --muted: #161b22;
+            --muted-foreground: #8b949e;
+            --accent: #00d9b1;
+            --accent-foreground: #0d1117;
+            --border: #21262d;
+            --card: #161b22;
+            --card-foreground: #e6edf3;
+            --primary: transparent;
+            --primary-foreground: #e6edf3;
+            --radius-sm: 2px;
+            --radius-md: 4px;
+            --radius-lg: 6px;
+            --radius-xl: 10px;
+            --font-family-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+        }
+    </style>
+    <style id="global-styles">
+        .export-wrapper {
+            background-color: var(--background);
+            color: var(--foreground);
+            font-family: var(--font-family-body);
+            font-size: 14px;
+            min-height: 812px;
+            width: 100%;
+        }
+    </style>
+    <style id="navbar-styles">
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 48px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(12px);
+        }
+
+        #navbar-logo {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--foreground);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #navbar-logo span.dash {
+            color: var(--muted-foreground);
+        }
+
+        #navbar-logo .logo-accent {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        #nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        #nav-links li a {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            color: var(--muted-foreground);
+            text-decoration: none;
+        }
+
+        #nav-search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 260px;
+            margin-left: 24px;
+        }
+
+        #nav-search {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--foreground);
+            font-size: 13px;
+            outline: none;
+        }
+
+        #nav-search::placeholder {
+            color: rgba(230, 237, 243, 0.6);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            background: rgba(13, 17, 23, 0.98);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+            max-height: 260px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+        }
+
+        .search-result-item {
+            padding: 11px 14px;
+            cursor: pointer;
+            color: var(--foreground);
+            font-size: 13px;
+            transition: background 0.2s ease;
+        }
+
+        .search-result-item:hover,
+        .search-result-item.active {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        #nav-cta {
+            background: transparent;
+            border: 1px solid var(--foreground);
+            color: var(--foreground);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--background, #0d1117);
+            padding-top: 82px;
+        }
+    </style>
+    <style id="section-styles">
+        #projects-section {
+            padding: 64px 48px 80px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        #section-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: flex-start;
+            margin-bottom: 64px;
+        }
+
+        #section-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            color: var(--muted-foreground);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        #section-label::after {
+            content: "";
+            display: block;
+            width: 120px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        #section-title {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--foreground);
+            letter-spacing: -0.02em;
+        }
+
+        #section-description {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--muted-foreground);
+            max-width: 380px;
+            margin-top: 56px;
+        }
+    </style>
+    <style id="grid-styles">
+        #projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        #project-left-col {
+            display: flex;
+            flex-direction: column;
+            padding-right: 48px;
+            gap: 0;
+        }
+
+        #project-right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            padding-top: 80px;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 48px;
+        }
+
+        .project-image-wrap {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+        }
+
+        .project-image-wrap img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .project-number-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--accent);
+            color: var(--accent-foreground);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 3px 7px;
+            border-radius: var(--radius-sm);
+            z-index: 2;
+        }
+
+        .project-meta {
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            margin-top: 0;
+        }
+
+        .project-meta-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .project-tag {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .project-year {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted-foreground);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--foreground);
+            letter-spacing: -0.01em;
+            margin-bottom: 4px;
+        }
+
+        .project-subtitle {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--muted-foreground);
+            text-transform: uppercase;
+        }
+
+        .arrow-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            cursor: pointer;
+        }
+    </style>
+    <style id="full-width-card-styles">
+        #full-width-project {
+            grid-column: 1 / -1;
+            margin-bottom: 48px;
+        }
+
+        #full-width-project .project-image-wrap {
+            height: 320px;
+            overflow: hidden;
+        }
+
+        #full-width-project .project-image-wrap .code-runner {
+            width: 100%;
+            height: 320px;
+        }
+    </style>
+    <style id="code-runner-styles">
+        .code-runner {
+            background: #0a0e14;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            font-family: "Courier New", "Fira Mono", monospace;
+        }
+
+        .code-runner-bar {
+            background: #161b22;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-bottom: 1px solid #21262d;
+            flex-shrink: 0;
+        }
+
+        .code-runner-dots {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ff5f57;
+        }
+
+        .dot-yellow {
+            background: #febc2e;
+        }
+
+        .dot-green {
+            background: #28c840;
+        }
+
+        .code-runner-filename {
+            font-size: 11px;
+            font-weight: 500;
+            color: #8b949e;
+            letter-spacing: 0.06em;
+        }
+
+        .code-runner-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: #00d9b1;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #00d9b1;
+        }
+
+        .code-runner-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .code-runner-lines {
+            display: flex;
+            flex-direction: column;
+            padding: 16px 0;
+            background: #0d1117;
+            border-right: 1px solid #21262d;
+            min-width: 44px;
+            align-items: flex-end;
+            flex-shrink: 0;
+        }
+
+        .line-num {
+            font-size: 11px;
+            color: #3d444d;
+            padding: 1px 12px 1px 8px;
+            line-height: 1.7;
+            font-family: "Courier New", monospace;
+        }
+
+        .code-runner-content {
+            padding: 16px 20px;
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .code-line {
+            font-size: 12px;
+            line-height: 1.7;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .c-keyword {
+            color: #ff7b72;
+        }
+
+        .c-fn {
+            color: #d2a8ff;
+        }
+
+        .c-var {
+            color: #79c0ff;
+        }
+
+        .c-str {
+            color: #a5d6ff;
+        }
+
+        .c-str-green {
+            color: #7ee787;
+        }
+
+        .c-num {
+            color: #f2cc60;
+        }
+
+        .c-comment {
+            color: #3d444d;
+        }
+
+        .c-punct {
+            color: #e6edf3;
+        }
+
+        .c-plain {
+            color: #e6edf3;
+        }
+
+        .c-accent {
+            color: #00d9b1;
+        }
+
+        .c-type {
+            color: #ffa657;
+        }
+
+        .indent-1 {
+            padding-left: 16px;
+        }
+
+        .indent-2 {
+            padding-left: 32px;
+        }
+
+        .indent-3 {
+            padding-left: 48px;
+        }
+
+        .code-runner-bottom {
+            background: #161b22;
+            border-top: 1px solid #21262d;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .terminal-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #8b949e;
+            text-transform: uppercase;
+        }
+
+        .terminal-output {
+            font-size: 11px;
+            color: #7ee787;
+            font-family: "Courier New", monospace;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 7px;
+            height: 12px;
+            background: #00d9b1;
+            vertical-align: middle;
+            margin-left: 3px;
+        }
+    </style>
+    <style id="archive-styles">
+        #archive-section {
+            padding: 40px 48px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        #archive-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            color: var(--muted-foreground);
+            text-transform: uppercase;
+        }
+
+        #view-all-btn {
+            border: 1px solid var(--foreground);
+            background: transparent;
+            color: var(--foreground);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            padding: 12px 32px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+    </style>
+    <style id="page-transition-styles">
+      body {
+        opacity: 0;
+        transition: opacity 0.26s ease;
+      }
+      body.is-visible {
+        opacity: 1;
+      }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div id="navbar-logo">
+            <span class="dash">—</span>
+            ABHIJIT · PORT<span class="logo-accent">F</span>OLIO
+        </div>
+        <ul id="nav-links">
+            <li><a href="dev journey.html" data-media-type="banani-button">DEV JOURNEY</a></li>
+            <li><a href="code works.html" data-media-type="banani-button">CODE WORKS</a></li>
+            <li><a href="tech stack.html" data-media-type="banani-button">TECH STACK</a></li>
+            <li><a href="strengths.html" data-media-type="banani-button">STRENGTHS</a></li>
+        </ul>
+        <div id="nav-search-wrapper">
+            <input id="nav-search" type="search" placeholder="Search pages…" autocomplete="off" />
+            <div class="search-results" id="search-results"></div>
+        </div>
+        <a id="nav-cta" href="contact.html" data-media-type="banani-button">CONTACT ME</a>
+    </nav>
+
+    <!-- Main Section -->
+    <div id="projects-section">
+        <!-- Header -->
+        <div id="section-header">
+            <div>
+                <div id="section-label">03 — SELECTED PROJECTS</div>
+                <h1 id="section-title">Featured Code Works</h1>
+            </div>
+            <p id="section-description">
+                A collection of my development journey, showcasing full stack
+                capabilities, structured logic, and the evolution of my technical
+                craft.
+            </p>
+        </div>
+
+        <!-- Projects Grid: two columns -->
+        <div id="projects-grid">
+            <!-- Left Column -->
+            <div id="project-left-col">
+                <!-- Project 01 -->
+                <div class="project-card" data-media-type="banani-button">
+                    <div class="project-image-wrap">
+                        <span class="project-number-badge">01</span>
+                        <img data-aspect-ratio="16:9"
+                            data-query="dark themed desktop computer on a desk with a web portfolio website on the monitor screen, dark background, cinematic lighting, photography"
+                            alt="Portfolio V1"
+                            src="https://storage.googleapis.com/banani-generated-images/generated-images/0d448c94-84ca-44f3-929c-48905b8d7366.jpg" />
+                    </div>
+                    <div class="project-meta">
+                        <div class="project-meta-top">
+                            <span class="project-tag">WEB APP</span>
+                            <div style="display: flex; align-items: center; gap: 8px">
+                                <span class="project-year">2024</span>
+                                <div class="arrow-link">
+                                    <div style="
+                          width: 18px;
+                          height: 18px;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                        ">
+                                        <iconify-icon icon="lucide:arrow-up-right"
+                                            style="font-size: 18px; color: var(--accent)"></iconify-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-name">Portfolio V1</div>
+                        <div class="project-subtitle">FRONTEND DEVELOPMENT</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div id="project-right-col">
+                <!-- Project 02 -->
+                <div class="project-card" data-media-type="banani-button">
+                    <div class="project-image-wrap">
+                        <span class="project-number-badge">02</span>
+                        <img data-aspect-ratio="4:3"
+                            data-query="laptop with a dark analytics dashboard showing revenue charts, bar graphs and circular metrics, light gray background, professional product photography"
+                            alt="Code Neptune"
+                            src="https://storage.googleapis.com/banani-generated-images/generated-images/5e9c30c2-aa31-4601-bbdf-0459e3254b7b.jpg" />
+                    </div>
+                    <div class="project-meta">
+                        <div class="project-meta-top">
+                            <span class="project-tag">FULL STACK</span>
+                            <div style="display: flex; align-items: center; gap: 8px">
+                                <span class="project-year">2024</span>
+                                <div class="arrow-link">
+                                    <div style="
+                          width: 18px;
+                          height: 18px;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                        ">
+                                        <iconify-icon icon="lucide:arrow-up-right"
+                                            style="font-size: 18px; color: var(--accent)"></iconify-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-name">Code Neptune</div>
+                        <div class="project-subtitle">INTERNSHIP PROJECT</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Width Project 03 — Code Runner -->
+            <div id="full-width-project" class="project-card" data-media-type="banani-button">
+                <div class="project-image-wrap">
+                    <span class="project-number-badge">03</span>
+
+                    <!-- Code Running Design -->
+                    <div class="code-runner">
+                        <!-- Top bar -->
+                        <div class="code-runner-bar">
+                            <div class="code-runner-dots">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-runner-filename">system_architecture.py</div>
+                            <div class="code-runner-status">
+                                <div class="status-dot"></div>
+                                RUNNING
+                            </div>
+                        </div>
+
+                        <!-- Code body -->
+                        <div class="code-runner-body">
+                            <div class="code-runner-lines">
+                                <span class="line-num">1</span>
+                                <span class="line-num">2</span>
+                                <span class="line-num">3</span>
+                                <span class="line-num">4</span>
+                                <span class="line-num">5</span>
+                                <span class="line-num">6</span>
+                                <span class="line-num">7</span>
+                                <span class="line-num">8</span>
+                                <span class="line-num">9</span>
+                                <span class="line-num">10</span>
+                                <span class="line-num">11</span>
+                                <span class="line-num">12</span>
+                                <span class="line-num">13</span>
+                                <span class="line-num">14</span>
+                                <span class="line-num">15</span>
+                                <span class="line-num">16</span>
+                                <span class="line-num">17</span>
+                                <span class="line-num">18</span>
+                                <span class="line-num">19</span>
+                                <span class="line-num">20</span>
+                            </div>
+                            <div class="code-runner-content">
+                                <div class="code-line">
+                                    <span class="c-comment"># system_architecture.py — Structured Systems ·
+                                        2024</span>
+                                </div>
+                                <div class="code-line">&nbsp;</div>
+                                <div class="code-line">
+                                    <span class="c-keyword">from</span>
+                                    <span class="c-var">core</span>
+                                    <span class="c-keyword">import</span>
+                                    <span class="c-fn">Architecture</span><span class="c-punct">,</span>
+                                    <span class="c-fn">ServiceMesh</span><span class="c-punct">,</span>
+                                    <span class="c-fn">DataPipeline</span>
+                                </div>
+                                <div class="code-line">
+                                    <span class="c-keyword">import</span>
+                                    <span class="c-var">asyncio</span><span class="c-punct">,</span>
+                                    <span class="c-var">logging</span>
+                                </div>
+                                <div class="code-line">&nbsp;</div>
+                                <div class="code-line">
+                                    <span class="c-keyword">class</span>
+                                    <span class="c-fn">SystemArchitecture</span><span class="c-punct">(</span><span
+                                        class="c-type">Architecture</span><span class="c-punct">):</span>
+                                </div>
+                                <div class="code-line indent-1">
+                                    <span class="c-var">VERSION</span>
+                                    <span class="c-punct">=</span>
+                                    <span class="c-str-green">"3.1.0"</span>
+                                </div>
+                                <div class="code-line indent-1">
+                                    <span class="c-var">SERVICES</span>
+                                    <span class="c-punct">=</span>
+                                    <span class="c-punct">[</span><span class="c-str">"api"</span><span
+                                        class="c-punct">,</span>
+                                    <span class="c-str">"auth"</span><span class="c-punct">,</span>
+                                    <span class="c-str">"cache"</span><span class="c-punct">,</span>
+                                    <span class="c-str">"queue"</span><span class="c-punct">,</span>
+                                    <span class="c-str">"db"</span><span class="c-punct">]</span>
+                                </div>
+                                <div class="code-line">&nbsp;</div>
+                                <div class="code-line indent-1">
+                                    <span class="c-keyword">async def</span>
+                                    <span class="c-fn">initialize</span><span class="c-punct">(</span><span
+                                        class="c-var">self</span><span class="c-punct">)</span>
+                                    <span class="c-punct">-&gt;</span>
+                                    <span class="c-type">None</span><span class="c-punct">:</span>
+                                </div>
+                                <div class="code-line indent-2">
+                                    <span class="c-var">mesh</span>
+                                    <span class="c-punct">=</span>
+                                    <span class="c-fn">ServiceMesh</span><span class="c-punct">(</span><span
+                                        class="c-var">services</span><span class="c-punct">=</span><span
+                                        class="c-var">self</span><span class="c-punct">.</span><span
+                                        class="c-var">SERVICES</span><span class="c-punct">)</span>
+                                </div>
+                                <div class="code-line indent-2">
+                                    <span class="c-keyword">await</span>
+                                    <span class="c-var">mesh</span><span class="c-punct">.</span><span
+                                        class="c-fn">bootstrap</span><span class="c-punct">()</span>
+                                </div>
+                                <div class="code-line indent-2">
+                                    <span class="c-var">pipeline</span>
+                                    <span class="c-punct">=</span>
+                                    <span class="c-fn">DataPipeline</span><span class="c-punct">(</span><span
+                                        class="c-var">batch_size</span><span class="c-punct">=</span><span
+                                        class="c-num">512</span><span class="c-punct">,</span>
+                                    <span class="c-var">workers</span><span class="c-punct">=</span><span
+                                        class="c-num">8</span><span class="c-punct">)</span>
+                                </div>
+                                <div class="code-line indent-2">
+                                    <span class="c-keyword">await</span>
+                                    <span class="c-var">pipeline</span><span class="c-punct">.</span><span
+                                        class="c-fn">start</span><span class="c-punct">()</span>
+                                </div>
+                                <div class="code-line indent-2">
+                                    <span class="c-var">logging</span><span class="c-punct">.</span><span
+                                        class="c-fn">info</span><span class="c-punct">(</span><span
+                                        class="c-str-green">f"System online — v</span><span
+                                        class="c-accent">{self.VERSION}</span><span class="c-str-green">"</span><span
+                                        class="c-punct">)</span>
+                                </div>
+                                <div class="code-line">&nbsp;</div>
+                                <div class="code-line indent-1">
+                                    <span class="c-keyword">def</span>
+                                    <span class="c-fn">health_check</span><span class="c-punct">(</span><span
+                                        class="c-var">self</span><span class="c-punct">)</span>
+                                    <span class="c-punct">-&gt;</span>
+                                    <span class="c-type">dict</span><span class="c-punct">:</span>
+                                </div>
+                                <div class="code-line indent-2">
+                                    <span class="c-keyword">return</span>
+                                    <span class="c-punct">{</span><span class="c-str">"status"</span><span
+                                        class="c-punct">:</span>
+                                    <span class="c-str-green">"healthy"</span><span class="c-punct">,</span>
+                                    <span class="c-str">"uptime"</span><span class="c-punct">:</span>
+                                    <span class="c-num">99.98</span><span class="c-punct">,</span>
+                                    <span class="c-str">"nodes"</span><span class="c-punct">:</span>
+                                    <span class="c-num">5</span><span class="c-punct">}</span>
+                                </div>
+                                <div class="code-line">&nbsp;</div>
+                                <div class="code-line">
+                                    <span class="c-keyword">if</span>
+                                    <span class="c-var">__name__</span>
+                                    <span class="c-punct">==</span>
+                                    <span class="c-str-green">"__main__"</span><span class="c-punct">:</span>
+                                </div>
+                                <div class="code-line indent-1">
+                                    <span class="c-var">asyncio</span><span class="c-punct">.</span><span
+                                        class="c-fn">run</span><span class="c-punct">(</span><span
+                                        class="c-fn">SystemArchitecture</span><span class="c-punct">().</span><span
+                                        class="c-fn">initialize</span><span class="c-punct">())</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terminal output -->
+                        <div class="code-runner-bottom">
+                            <span class="terminal-label">Terminal</span>
+                            <span class="terminal-output">▶ System online — v3.1.0 &nbsp;|&nbsp; All 5 services
+                                active &nbsp;|&nbsp; Pipeline running @ 512 batch</span>
+                            <span class="terminal-cursor"></span>
+                        </div>
+                    </div>
+                    <!-- end code runner -->
+                </div>
+                <div class="project-meta">
+                    <div class="project-meta-top">
+                        <span class="project-tag">BACKEND</span>
+                        <div style="display: flex; align-items: center; gap: 8px">
+                            <span class="project-year">2024</span>
+                            <div class="arrow-link">
+                                <div style="
+                        width: 18px;
+                        height: 18px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      ">
+                                    <iconify-icon icon="lucide:arrow-up-right"
+                                        style="font-size: 18px; color: var(--accent)"></iconify-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-name">System Architecture</div>
+                    <div class="project-subtitle">STRUCTURED SYSTEMS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Archive -->
+    <div id="archive-section">
+        <div id="archive-label">ARCHIVE</div>
+        <div id="view-all-btn" data-media-type="banani-button">
+            VIEW ALL PROJECTS
+            <div style="
+              width: 16px;
+              height: 16px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+                <iconify-icon icon="lucide:arrow-right"
+                    style="font-size: 16px; color: var(--foreground)"></iconify-icon>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const pages = [
+                { title: 'Home', href: 'home.html' },
+                { title: 'Dev Journey', href: 'dev journey.html' },
+                { title: 'Code Works', href: 'code works.html' },
+                { title: 'Tech Stack', href: 'tech stack.html' },
+                { title: 'Strengths', href: 'strengths.html' },
+                { title: 'Contact', href: 'contact.html' }
+            ];
+
+            const searchInput = document.querySelector('#nav-search');
+            const resultsBox = document.querySelector('#search-results');
+
+            function renderResults(items) {
+                resultsBox.innerHTML = items.map(item =>
+                    `<div class="search-result-item" data-href="${item.href}">${item.title}</div>`
+                ).join('');
+                resultsBox.style.display = items.length ? 'block' : 'none';
+            }
+
+            function closeResults() {
+                resultsBox.style.display = 'none';
+            }
+
+            if (!searchInput || !resultsBox) return;
+
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.trim().toLowerCase();
+                if (!query) {
+                    closeResults();
+                    return;
+                }
+
+                const filtered = pages.filter(page => page.title.toLowerCase().includes(query));
+                renderResults(filtered);
+            });
+
+            resultsBox.addEventListener('click', (event) => {
+                const item = event.target.closest('.search-result-item');
+                if (!item) return;
+                window.location.href = item.dataset.href;
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('#nav-search-wrapper')) {
+                    closeResults();
+                }
+            });
+
+            searchInput.addEventListener('focus', () => {
+                if (searchInput.value.trim()) {
+                    const filtered = pages.filter(page => page.title.toLowerCase().includes(searchInput.value.trim().toLowerCase()));
+                    renderResults(filtered);
+                }
+            });
+        });
+    </script>
+  <script>
+  (function() {
+    function isLocalLink(href) {
+      return href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:') && !/^https?:\/\//i.test(href);
+    }
+
+    function fadeNavigate(target) {
+      document.body.classList.remove('is-visible');
+      setTimeout(function() {
+        window.location.href = target;
+      }, 220);
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('is-visible');
+      document.querySelectorAll('a[href]').forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (!isLocalLink(href)) {
+          return;
+        }
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          var target = link.href;
+          if (target === window.location.href) {
+            return;
+          }
+          fadeNavigate(target);
+        });
+      });
+      document.addEventListener('click', function(event) {
+        var item = event.target.closest('[data-href]');
+        if (item && item.dataset.href && isLocalLink(item.dataset.href)) {
+          event.preventDefault();
+          fadeNavigate(item.dataset.href);
+        }
+      });
+    });
+  })();
+  </script>
+</body>
+
+</html>

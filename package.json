@@ -1,0 +1,12 @@
+{
+    "name": "portfolio-site",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "live-server src --open=./index.html",
+        "dev": "live-server src --open=./index.html"
+    },
+    "devDependencies": {
+        "live-server": "^1.2.2"
+    }
+}

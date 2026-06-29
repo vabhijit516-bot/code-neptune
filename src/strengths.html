@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ANALYST:FAST API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100;200;300;400;500;600;700;800;900&family=Geist:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=PT+Serif:wght@400;700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Shantell+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style id="reset-base">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <style id="tokens">
+        :root {
+            --bg: #0a0f0d;
+            --bg-card: #0d1a14;
+            --bg-highlight: #0a1a2e;
+            --bg-nav: #081009;
+            --neon: #00c2ff;
+            --neon-border: #00c2ff;
+            --text-main: #e8f5e9;
+            --text-muted: #7aab8a;
+            --text-dim: #4a7a5a;
+            --accent-yellow: #f5c518;
+            --accent-orange: #ff7043;
+            --accent-blue: #29b6f6;
+            --badge-live-bg: #00c2ff;
+            --badge-live-text: #0a0f0d;
+            --badge-enterprise-bg: #1a2a4a;
+            --badge-enterprise-text: #29b6f6;
+            --badge-sdk-bg: #0a1a2e;
+            --badge-sdk-text: #00c2ff;
+            --badge-soc2-bg: #2a1a3a;
+            --badge-soc2-text: #ab47bc;
+            --badge-beta-bg: #3a2a0a;
+            --badge-beta-text: #ffb300;
+            --badge-new-bg: #0a2a3a;
+            --badge-new-text: #29b6f6;
+            --badge-webhooks-bg: #3a1a0a;
+            --badge-webhooks-text: #ff7043;
+            --badge-50plus-bg: #0a1a2e;
+            --badge-50plus-text: #00c2ff;
+            --border-subtle: #1a2e20;
+            --background: #071017;
+            --foreground: #e8f6f9;
+            --input: #0b1114;
+            --primary: #00f0c6;
+            --primary-foreground: #041916;
+            --secondary: #072227;
+            --secondary-foreground: #bff6ea;
+            --muted: #081014;
+            --muted-foreground: #84b9a8;
+            --success: #00f0c6;
+            --success-foreground: #041916;
+            --accent: #6fe9d0;
+            --accent-foreground: #02231f;
+            --destructive: #ff6b6b;
+            --destructive-foreground: #2b0f11;
+            --warning: #ffc400;
+            --warning-foreground: #332300;
+            --card: #0b1518;
+            --card-foreground: #dff9f1;
+            --sidebar: #071718;
+            --sidebar-foreground: #bff6ea;
+            --sidebar-primary: #00363a;
+            --sidebar-primary-foreground: #bffef0;
+            --radius-sm: 4px;
+            --radius-md: 6px;
+            --radius-lg: 8px;
+            --radius-xl: 12px;
+            --font-family-body: Inter;
+        }
+    </style>
+    <style id="layout">
+        body {
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: "Courier New", "Menlo", monospace;
+        }
+
+        .export-wrapper {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: "Courier New", "Menlo", monospace;
+            font-size: 14px;
+            min-height: 812px;
+        }
+
+        .page-wrapper {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 812px;
+        }
+    </style>
+    <style id="nav-styles">
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            height: 64px;
+            background: #0a0f0d;
+            border-bottom: 1px solid #1a3a2a;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .navbar::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #00c2ff33 30%, #00c2ff66 50%, #00c2ff33 70%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+        }
+
+        .logo-brand {
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 0.04em;
+        }
+
+        .logo-api {
+            color: var(--neon);
+            font-weight: 800;
+            font-size: 15px;
+            margin-left: 6px;
+            letter-spacing: 0.04em;
+        }
+
+        .navbar-center {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .navbar-center a {
+            color: #5a8a6a;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .navbar-center a:hover,
+        .navbar-center a.active {
+            color: var(--neon);
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar-login {
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .navbar-cta {
+            border: 1px solid var(--neon);
+            color: var(--neon);
+            padding: 9px 22px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+    </style>
+    <style id="hero-styles">
+        .hero-section {
+            display: flex;
+            gap: 0;
+            padding: 48px;
+            flex: 1;
+        }
+
+        .hero-left {
+            width: 300px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-right: 32px;
+        }
+
+        .hero-eyebrow {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--text-main);
+            font-family: inherit;
+        }
+
+        .hero-title-italic {
+            font-style: italic;
+            color: var(--neon);
+            display: block;
+            line-height: 1.15;
+        }
+
+        .hero-description {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 220px;
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            display: block;
+            height: 180px;
+            object-fit: cover;
+            filter: brightness(0.7) saturate(0.8) hue-rotate(100deg);
+        }
+
+        .hero-image-caption {
+            padding: 8px 10px;
+            font-size: 10px;
+            color: var(--text-dim);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .hero-image-caption::before {
+            content: "▶";
+            font-size: 8px;
+            color: var(--text-dim);
+        }
+    </style>
+    <style id="features-styles">
+        .hero-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+        }
+
+        .features-track {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sliding-highlight {
+            position: absolute;
+            left: 0;
+            right: 0;
+            background: var(--bg-highlight);
+            border-left: 2px solid var(--neon);
+            pointer-events: none;
+            z-index: 0;
+            transition: top 0.22s cubic-bezier(0.4, 0, 0.2, 1), height 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 14px 16px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            border-left: 2px solid transparent;
+        }
+
+        .feature-icon {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: var(--text-muted);
+        }
+
+        .feature-icon iconify-icon {
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+
+        .feature-item.active .feature-icon iconify-icon {
+            color: var(--neon);
+        }
+
+        .feature-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .feature-title-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .feature-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.02em;
+        }
+
+        .feature-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        .feature-item.active .feature-desc {
+            color: #a8c8d8;
+        }
+
+        .feature-desc span {
+            color: var(--neon);
+        }
+    </style>
+    <style id="badge-styles">
+        .badge {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 2px 6px;
+            border-radius: 2px;
+            white-space: nowrap;
+        }
+
+        .badge-live {
+            background: var(--badge-live-bg);
+            color: var(--badge-live-text);
+        }
+
+        .badge-enterprise {
+            background: var(--badge-enterprise-bg);
+            color: var(--badge-enterprise-text);
+        }
+
+        .badge-sdk {
+            background: var(--badge-sdk-bg);
+            color: var(--badge-sdk-text);
+        }
+
+        .badge-soc2 {
+            background: var(--badge-soc2-bg);
+            color: var(--badge-soc2-text);
+        }
+
+        .badge-beta {
+            background: var(--badge-beta-bg);
+            color: var(--badge-beta-text);
+        }
+
+        .badge-new {
+            background: var(--badge-new-bg);
+            color: var(--badge-new-text);
+        }
+
+        .badge-webhooks {
+            background: var(--badge-webhooks-bg);
+            color: var(--badge-webhooks-text);
+        }
+
+        .badge-50plus {
+            background: var(--badge-50plus-bg);
+            color: var(--badge-50plus-text);
+        }
+    </style>
+    <style id="status-bar-styles">
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 6px 48px;
+            background: #060d0a;
+            border-bottom: 1px solid #0f2218;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #00c2ff;
+            flex-shrink: 0;
+            box-shadow: 0 0 6px #00c2ff88;
+        }
+
+        .status-dot.yellow {
+            background: #ffb300;
+            box-shadow: 0 0 6px #ffb30088;
+        }
+
+        .status-divider {
+            width: 1px;
+            height: 12px;
+            background: #1a3a2a;
+            flex-shrink: 0;
+        }
+
+        .status-value {
+            color: var(--neon);
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="export-wrapper">
+        <div class="page-wrapper">
+            <!-- STATUS BAR -->
+            <div class="status-bar" id="status-bar">
+                <div class="status-item">
+                    <div class="status-dot"></div>
+                    <span>All Systems Operational</span>
+                </div>
+                <div class="status-divider"></div>
+                <div class="status-item">
+                    <span>Latency</span>
+                    <span class="status-value">0.4ms</span>
+                </div>
+                <div class="status-divider"></div>
+                <div class="status-item">
+                    <span>Uptime</span>
+                    <span class="status-value">99.99%</span>
+                </div>
+                <div class="status-divider"></div>
+                <div class="status-item">
+                    <div class="status-dot yellow"></div>
+                    <span>Live Feed Active</span>
+                </div>
+            </div>
+
+            <!-- NAVBAR -->
+            <nav class="navbar" id="navbar">
+                <div class="navbar-logo">
+                    <span class="logo-brand">ANALYST:FAST</span>
+                    <span class="logo-api">API</span>
+                </div>
+
+                <div class="navbar-center">
+                    <a href="home.html">Home</a>
+                    <a href="dev journey.html">Dev Journey</a>
+                    <a href="code works.html">Code Works</a>
+                    <a href="tech stack.html">Tech Stack</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+
+                <div class="navbar-right">
+                    <a href="contact.html" class="navbar-login">Contact</a>
+                    <a href="contact.html" class="navbar-cta">Get Started</a>
+                </div>
+            </nav>
+
+            <!-- HERO SECTION -->
+            <div class="hero-section" id="hero-section">
+                <!-- LEFT COLUMN -->
+                <div class="hero-left" id="hero-left">
+                    <div class="hero-eyebrow">Financial Logic Engine</div>
+                    <div class="hero-title">
+                        Engineered for
+                        <span class="hero-title-italic">High-<br />Performance<br />Logic.</span>
+                    </div>
+                    <div class="hero-description">
+                        A comprehensive API solution for modern financial data
+                        development. Build intelligent pipelines and power real-time
+                        analytics.
+                    </div>
+                    <div class="hero-image-container">
+                        <img data-aspect-ratio="4:3"
+                            data-query="dark server room data center corridor with blue and green tinted lighting, high tech infrastructure, cinematic photography, dark teal color palette"
+                            src="https://storage.googleapis.com/banani-generated-images/generated-images/9248030b-018d-4ca7-8525-357be45a0108.jpg" />
+                        <div class="hero-image-caption">
+                            Powered by Next Gen Infrastructure
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: FEATURES -->
+                <div class="hero-right" id="hero-right">
+                    <div class="features-track" id="features-track">
+                        <div class="sliding-highlight" id="sliding-highlight"></div>
+
+                        <div class="feature-item active" onclick="selectFeature(this)" data-media-type="banani-button">
+                            <div class="feature-icon">
+                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:zap" style="font-size: 16px; color: var(--neon)"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="feature-content">
+                                <div class="feature-title-row">
+                                    <span class="feature-title">Real-time Data Processing</span>
+                                    <span class="badge badge-live">LIVE</span>
+                                </div>
+                                <div class="feature-desc">
+                                    Stream live market data with sub-millisecond latency. Our
+                                    <span>engine</span> processes millions of events per second
+                                    without breaking a sweat.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
+                            <div class="feature-icon">
+                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:shield" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="feature-content">
+                                <div class="feature-title-row">
+                                    <span class="feature-title">Institutional-grade API</span>
+                                    <span class="badge badge-enterprise">ENTERPRISE</span>
+                                </div>
+                                <div class="feature-desc">
+                                    Built for professional quants and developers. Reliable,
+                                    scalable, and production-ready endpoints for every
+                                    <span>financial instrument</span>.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
+                            <div class="feature-icon">
+                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:code-2" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="feature-content">
+                                <div class="feature-title-row">
+                                    <span class="feature-title">All Programming Languages</span>
+                                    <span class="badge badge-sdk">7 SDKs</span>
+                                </div>
+                                <div class="feature-desc">
+                                    Compatible with Python, JavaScript, Go, Rust, Java, C++ and
+                                    more. Official SDKs with full type support and examples.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
+                            <div class="feature-icon">
+                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:circle-check" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="feature-content">
+                                <div class="feature-title-row">
+                                    <span class="feature-title">Compliance &amp; Governance</span>
+                                    <span class="badge badge-soc2">SOC2</span>
+                                </div>
+                                <div class="feature-desc">
+                                    Enterprise-grade security with full audit trails, role-based
+                                    access control, and compliance-ready data pipelines.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
+                            <div class="feature-icon">
+                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:bar-chart-2" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="feature-content">
+                                <div class="feature-title-row">
+                                    <span class="feature-title">Analytics Engine</span>
+                                    <span class="badge badge-beta">BETA</span>
+                                </div>
+                                <div class="feature-desc">
+                                    Run advanced <span>backtesting</span>, factor models, and
+                                    portfolio analytics directly through the API layer — no
+                                    extra infrastructure.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
+                            <div class="feature-icon">
+                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:database" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="feature-content">
+                                <div class="feature-title-row">
+                                    <span class="feature-title">Smart Caching</span>
+                                    <span class="badge badge-new">NEW</span>
+                                </div>
+                                <div class="feature-desc">
+                                    Intelligent response caching that reduces latency by up to
+                                    <span>18x</span> on repeated queries. Fully configurable TTL
+                                    per endpoint.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
+                            <div class="feature-icon">
+                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:webhook" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="feature-content">
+                                <div class="feature-title-row">
+                                    <span class="feature-title">Event-Driven Architecture</span>
+                                    <span class="badge badge-webhooks">WEBHOOKS</span>
+                                </div>
+                                <div class="feature-desc">
+                                    Subscribe to market events, alerts, and triggers. React
+                                    instantly to <span>price movements</span>, news signals, or
+                                    custom conditions.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
+                            <div class="feature-icon">
+                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:plug" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="feature-content">
+                                <div class="feature-title-row">
+                                    <span class="feature-title">Native Integrations</span>
+                                    <span class="badge badge-50plus">50+</span>
+                                </div>
+                                <div class="feature-desc">
+                                    Connect natively with Bloomberg, Refinitiv, Snowflake,
+                                    Databricks, and 50+ data sources and warehouses out of the
+                                    box.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function selectFeature(el) {
+            document.querySelectorAll('.feature-item').forEach(function (item) {
+                item.classList.remove('active');
+            });
+            el.classList.add('active');
+
+            var track = document.getElementById('features-track');
+            var highlight = document.getElementById('sliding-highlight');
+            var trackRect = track.getBoundingClientRect();
+            var elRect = el.getBoundingClientRect();
+
+            highlight.style.top = (elRect.top - trackRect.top) + 'px';
+            highlight.style.height = elRect.height + 'px';
+        }
+
+        window.addEventListener('DOMContentLoaded', function () {
+            var track = document.getElementById('features-track');
+            var highlight = document.getElementById('sliding-highlight');
+            var firstActive = document.querySelector('.feature-item.active');
+
+            if (track ; highlight ; firstActive) {
+                var trackRect = track.getBoundingClientRect();
+                var elRect = firstActive.getBoundingClientRect();
+                highlight.style.top = (elRect.top - trackRect.top) + 'px';
+                highlight.style.height = elRect.height + 'px';
+            }
+        });
+    </script>
+</body>
+
+</html>

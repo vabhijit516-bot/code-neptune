@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100;200;300;400;500;600;700;800;900&family=Geist:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=PT+Serif:wght@400;700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Shantell+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abhijit Portfolio</title>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style id="root-styles">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-dark: #0d1117;
+            --bg-darker: #080c10;
+            --bg-card: #111720;
+            --text-primary: #ffffff;
+            --text-secondary: #8a9ab0;
+            --text-muted: #4a5a6a;
+            --accent-cyan: #00d4c8;
+            --accent-cyan-dim: #00a89e;
+            --border-color: #1e2d3d;
+            --glow-cyan: rgba(0, 212, 200, 0.55);
+            --glow-cyan-soft: rgba(0, 212, 200, 0.25);
+            --glow-cyan-faint: rgba(0, 212, 200, 0.12);
+            --input-bg: #0d1520;
+            --font-mono: "Courier New", Courier, monospace;
+        }
+
+        .export-wrapper {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+    </style>
+
+    <style id="navbar-styles">
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 48px;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(12px);
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--background, #0d1117);
+            padding-top: 72px;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--text-primary);
+            color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .navbar-sep {
+            color: var(--text-muted);
+            margin: 0 6px;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+        }
+
+        .nav-link {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-link-cta {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            border: 2px solid #e53935;
+            padding: 10px 22px;
+            background: transparent;
+            box-shadow:
+                0 0 10px rgba(229, 57, 53, 0.4),
+                0 0 24px rgba(229, 57, 53, 0.2),
+                inset 0 0 8px rgba(229, 57, 53, 0.08);
+        }
+    </style>
+
+    <style id="hero-styles">
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right,
+                    rgba(8, 12, 16, 0.85) 40%,
+                    rgba(8, 12, 16, 0.2) 100%);
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 80px;
+            left: 60px;
+            max-width: 520px;
+        }
+
+        .hero-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            text-shadow: 0 0 12px var(--glow-cyan);
+        }
+
+        .hero-label span {
+            color: var(--text-secondary);
+            margin: 0 8px;
+        }
+
+        .hero-title {
+            font-size: 62px;
+            font-weight: 800;
+            line-height: 1.05;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--accent-cyan);
+            text-shadow:
+                0 0 20px var(--glow-cyan),
+                0 0 40px var(--glow-cyan-soft);
+        }
+
+        .hero-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 32px;
+            max-width: 380px;
+        }
+
+        .hero-cta-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .hero-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            border: 2px solid var(--text-primary);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 14px 28px;
+            cursor: pointer;
+            box-shadow:
+                0 0 12px rgba(255, 255, 255, 0.18),
+                0 0 28px rgba(255, 255, 255, 0.08);
+        }
+
+        .hero-direct-line {
+            font-size: 13px;
+            color: var(--accent-cyan);
+            font-weight: 500;
+            text-shadow: 0 0 10px var(--glow-cyan-soft);
+        }
+
+        .hero-direct-line span {
+            color: var(--text-secondary);
+            margin-right: 8px;
+            font-size: 12px;
+        }
+    </style>
+
+    <style id="contact-section-styles">
+        .contact-section {
+            background-color: var(--bg-dark);
+            padding: 100px 60px;
+        }
+
+        .contact-inner {
+            display: flex;
+            gap: 80px;
+            align-items: flex-start;
+            max-width: 1200px;
+        }
+
+        .contact-left {
+            flex: 0 0 340px;
+        }
+
+        .contact-right {
+            flex: 1;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .contact-heading {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 0.95;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+        }
+
+        .contact-subtext {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 320px;
+        }
+
+        .contact-info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .contact-info-item {
+            padding: 20px 0;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            box-shadow: 0 -1px 0 0 var(--glow-cyan-faint);
+        }
+
+        .contact-info-item:last-child {
+            border-bottom: 1px solid var(--border-color);
+            box-shadow:
+                0 -1px 0 0 var(--glow-cyan-faint),
+                0 1px 0 0 var(--glow-cyan-faint);
+        }
+
+        .contact-info-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-info-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+            padding-left: 2px;
+        }
+    </style>
+
+    <style id="form-styles">
+        .form-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--accent-cyan);
+            padding: 40px 40px 36px;
+            box-shadow:
+                0 0 16px var(--glow-cyan-soft),
+                0 0 40px var(--glow-cyan-faint),
+                inset 0 0 20px rgba(0, 212, 200, 0.04);
+        }
+
+        .form-label-top {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px var(--glow-cyan-soft);
+        }
+
+        .form-title {
+            font-size: 26px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--accent-cyan);
+            box-shadow: 0 1px 0 0 var(--glow-cyan-faint);
+        }
+
+        .form-field {
+            margin-bottom: 24px;
+        }
+
+        .form-field-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .form-field-label .req {
+            color: #e53935;
+            font-size: 13px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--input-bg);
+            border: none;
+            border-bottom: 1px solid var(--accent-cyan);
+            padding: 12px 0;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            box-shadow: 0 1px 0 0 var(--glow-cyan-soft);
+            transition: box-shadow 0.2s;
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-input:focus {
+            box-shadow: 0 2px 0 0 var(--glow-cyan);
+        }
+
+        .form-textarea {
+            width: 100%;
+            background: var(--input-bg);
+            border: none;
+            border-bottom: 1px solid var(--accent-cyan);
+            padding: 12px 0;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+            min-height: 100px;
+            resize: none;
+            box-shadow: 0 1px 0 0 var(--glow-cyan-soft);
+            transition: box-shadow 0.2s;
+            display: block;
+        }
+
+        .form-textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            box-shadow: 0 2px 0 0 var(--glow-cyan);
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 16px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow:
+                0 0 14px var(--glow-cyan-soft),
+                0 0 32px var(--glow-cyan-faint),
+                inset 0 0 12px rgba(0, 212, 200, 0.06);
+        }
+
+        .form-note {
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: center;
+        }
+    </style>
+
+    <style id="footer-styles">
+        .footer-section {
+            background-color: var(--bg-darker);
+            padding: 80px 60px 40px;
+        }
+
+        .footer-top {
+            display: flex;
+            gap: 80px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 1px 0 0 var(--glow-cyan-faint);
+        }
+
+        .footer-brand {
+            flex: 0 0 280px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: var(--text-primary);
+            color: var(--bg-dark);
+            font-weight: 900;
+            font-size: 16px;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .footer-tagline {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 28px;
+            max-width: 240px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .social-icon-btn {
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            box-shadow:
+                0 0 8px var(--glow-cyan-faint),
+                inset 0 0 6px rgba(0, 212, 200, 0.04);
+        }
+
+        .footer-nav-cols {
+            flex: 1;
+            display: flex;
+            gap: 80px;
+        }
+
+        .footer-col-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .footer-col-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-col-links li {
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 32px;
+        }
+
+        .footer-copy {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            font-size: 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+
+    <style id="glow-border-styles">
+        /* Glow borders on contact info dividers */
+        .contact-info-item {
+            border-top: 1px solid var(--accent-cyan) !important;
+        }
+
+        .contact-info-item:last-child {
+            border-bottom: 1px solid var(--accent-cyan) !important;
+        }
+
+        /* Glow on hero CTA button */
+        .hero-cta-btn {
+            border-color: var(--accent-cyan) !important;
+            box-shadow:
+                0 0 14px var(--glow-cyan-soft),
+                0 0 32px var(--glow-cyan-faint),
+                inset 0 0 10px rgba(0, 212, 200, 0.05);
+        }
+    </style>
+    <style id="page-transition-styles">
+        body {
+            opacity: 0;
+            transition: opacity 0.26s ease;
+        }
+
+        body.is-visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <img class="hero-bg" data-aspect-ratio="16:9"
+            data-query="dark circuit board with glowing cyan neon traces and nodes, technology background, close-up macro shot, dark teal and black palette, futuristic electronics"
+            src="https://storage.googleapis.com/banani-generated-images/generated-images/d1dc90ff-6b51-4efc-a1fd-a04ad2f5b9c0.jpg" />
+        <div class="hero-overlay"></div>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-logo">
+                <div class="logo-icon">AP</div>
+                <span class="navbar-sep">—</span>
+                <span>ABHIJIT · PORTFOLIO</span>
+            </div>
+            <div class="navbar-links">
+                <a class="nav-link" href="dev journey.html" data-media-type="banani-button">DEV JOURNEY</a>
+                <a class="nav-link" href="code works.html" data-media-type="banani-button">CODE WORKS</a>
+                <a class="nav-link" href="tech stack.html" data-media-type="banani-button">TECH STACK</a>
+                <a class="nav-link" href="strengths.html" data-media-type="banani-button">STRENGTHS</a>
+                <a class="nav-link-cta" href="contact.html" data-media-type="banani-button">CONTACT ME</a>
+            </div>
+        </nav>
+
+        <div class="hero-content">
+            <div class="hero-label">
+                COLLABORATION <span>·</span> AVAILABLE FOR PROJECTS
+            </div>
+            <h1 class="hero-title">
+                Let's build<br />
+                <em>something</em><br />
+                extraordinary.
+            </h1>
+            <p class="hero-desc">
+                Ready to bring your vision to life? Reach out to discuss your
+                project requirements, technical challenges, or potential
+                opportunities. I am currently accepting new development inquiries.
+            </p>
+            <div class="hero-cta-row">
+                <a class="hero-cta-btn" href="mailto:vabi3388@gmail.com" data-media-type="banani-button">
+                    CONTACT ABHIJIT
+                    <div style="
+                  width: 16px;
+                  height: 16px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                ">
+                        <iconify-icon icon="lucide:arrow-right" style="font-size: 16px; color: #ffffff"></iconify-icon>
+                    </div>
+                </a>
+                <div class="hero-direct-line">
+                    <span>Direct Line</span> 9840549063
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <div class="contact-inner">
+            <!-- Left -->
+            <div class="contact-left">
+                <div class="section-label">06 / CONTACT</div>
+                <h2 class="contact-heading">LET'S<br />CONNECT<br />ABHIJIT.</h2>
+                <p class="contact-subtext">
+                    Ready to build something futuristic? Reach out for collaborations,
+                    technical inquiries, or just to say hello.
+                </p>
+
+                <ul class="contact-info-list">
+                    <li class="contact-info-item">
+                        <div class="contact-info-label">
+                            <div style="
+                      width: 14px;
+                      height: 14px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    ">
+                                <iconify-icon icon="lucide:phone"
+                                    style="font-size: 13px; color: #4a5a6a"></iconify-icon>
+                            </div>
+                            / PHONE
+                        </div>
+                        <div class="contact-info-value">9840549063</div>
+                    </li>
+                    <li class="contact-info-item">
+                        <div class="contact-info-label">
+                            <div style="
+                      width: 14px;
+                      height: 14px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    ">
+                                <iconify-icon icon="lucide:mail" style="font-size: 13px; color: #4a5a6a"></iconify-icon>
+                            </div>
+                            / EMAIL
+                        </div>
+                        <div class="contact-info-value">vabi3388@gmail.com</div>
+                    </li>
+                    <li class="contact-info-item">
+                        <div class="contact-info-label">
+                            <div style="
+                      width: 14px;
+                      height: 14px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    ">
+                                <iconify-icon icon="lucide:map-pin"
+                                    style="font-size: 13px; color: #4a5a6a"></iconify-icon>
+                            </div>
+                            / LOCATION
+                        </div>
+                        <div class="contact-info-value">Chennai, Tamil Nadu</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="contact-right">
+                <div class="form-card">
+                    <div class="form-label-top">/ INQUIRY TERMINAL</div>
+                    <div class="form-title">START A PROJECT</div>
+
+                    <div class="form-field">
+                        <label class="form-field-label" for="contact-name">
+                            FULL NAME <span class="req">*</span>
+                        </label>
+                        <input id="contact-name" class="form-input" type="text" placeholder="Your full name"
+                            autocomplete="name" required />
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-field-label" for="contact-email">
+                            EMAIL <span class="req">*</span>
+                        </label>
+                        <input id="contact-email" class="form-input" type="email" placeholder="your@email.com"
+                            autocomplete="email" required />
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-field-label" for="contact-message">
+                            PROJECT DESCRIPTION <span class="req">*</span>
+                        </label>
+                        <textarea id="contact-message" class="form-textarea"
+                            placeholder="Tell me about your project requirements..." required></textarea>
+                    </div>
+
+                    <div id="form-submit-btn" class="form-submit-btn" data-media-type="banani-button"
+                        onclick="handleContactSubmit()">
+                        <span id="btn-text">SEND MESSAGE →</span>
+                        <span id="btn-loading" style="display:none;">SENDING...</span>
+                    </div>
+                    <div id="form-status"
+                        style="display:none; text-align:center; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:12px; padding: 10px;">
+                    </div>
+                    <div class="form-note">
+                        / YOUR INQUIRY IS PROCESSED SECURELY. I AIM TO RESPOND WITHIN 24
+                        HOURS.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-section">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo">AP</div>
+                <p class="footer-tagline">
+                    Full stack development, engineered with precision.
+                </p>
+                <div class="footer-socials">
+                    <a class="social-icon-btn" href="https://github.com/vabhijit516-bot" target="_blank"
+                        rel="noopener noreferrer" data-media-type="banani-button">
+                        <iconify-icon icon="lucide:github" style="font-size: 15px; color: #8a9ab0"></iconify-icon>
+                    </a>
+                    <a class="social-icon-btn"
+                        href="https://www.linkedin.com/in/abhijit-v-3a05a9359/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BSPESLOP1TuazmJTkst0mxA%3D%3D"
+                        target="_blank" rel="noopener noreferrer" data-media-type="banani-button">
+                        <iconify-icon icon="lucide:linkedin" style="font-size: 15px; color: #8a9ab0"></iconify-icon>
+                    </a>
+                    <div class="social-icon-btn" data-media-type="banani-button">
+                        <iconify-icon icon="lucide:instagram" style="font-size: 15px; color: #8a9ab0"></iconify-icon>
+                    </div>
+                    <div class="social-icon-btn" data-media-type="banani-button">
+                        <iconify-icon icon="lucide:youtube" style="font-size: 15px; color: #8a9ab0"></iconify-icon>
+                    </div>
+                    <div class="social-icon-btn" data-media-type="banani-button">
+                        <iconify-icon icon="lucide:dribbble" style="font-size: 15px; color: #8a9ab0"></iconify-icon>
+                    </div>
+                    <div class="social-icon-btn" data-media-type="banani-button">
+                        <iconify-icon icon="lucide:twitter" style="font-size: 15px; color: #8a9ab0"></iconify-icon>
+                    </div>
+                    <div class="social-icon-btn" data-media-type="banani-button">
+                        <iconify-icon icon="lucide:rss" style="font-size: 15px; color: #8a9ab0"></iconify-icon>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-nav-cols">
+                <div>
+                    <div class="footer-col-title">NAVIGATION</div>
+                    <ul class="footer-col-links">
+                        <li data-media-type="banani-button">Home</li>
+                        <li data-media-type="banani-button">Projects</li>
+                        <li data-media-type="banani-button">Experience</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">RESOURCES</div>
+                    <ul class="footer-col-links">
+                        <li><a href="tech stack.html" data-media-type="banani-button">Skills</a></li>
+                        <li><a href="contact.html" data-media-type="banani-button">Contact</a></li>
+                        <li><a href="https://github.com/vabhijit516-bot" target="_blank" rel="noopener noreferrer"
+                                data-media-type="banani-button">GitHub</a></li>
+                        <li><a href="https://www.linkedin.com/in/abhijit-v-3a05a9359/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BSPESLOP1TuazmJTkst0mxA%3D%3D"
+                                target="_blank" rel="noopener noreferrer" data-media-type="banani-button">LinkedIn</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">SITE MAP</div>
+                    <ul class="footer-col-links">
+                        <li data-media-type="banani-button">Dev Journey</li>
+                        <li data-media-type="banani-button">Code Works</li>
+                        <li data-media-type="banani-button">Tech Stack</li>
+                        <li data-media-type="banani-button">Strengths</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-copy">
+                © 2026 Abhijit Portfolio · Based in Chennai, Tamil Nadu
+            </div>
+            <div class="footer-legal">
+                <a data-media-type="banani-button">Privacy</a>
+                <a data-media-type="banani-button">Terms</a>
+                <a data-media-type="banani-button">Cookies</a>
+            </div>
+            <div class="watermark">ABHIJIT</div>
+        </div>
+    </footer>
+    <!-- ========= EmailJS SDK ========= -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // STEP 1: Replace with your EmailJS Public Key
+        emailjs.init("0Q6VBZHhuO2YtBoenur");
+
+        function handleContactSubmit() {
+            var name = document.getElementById("contact-name").value.trim();
+            var email = document.getElementById("contact-email").value.trim();
+            var message = document.getElementById("contact-message").value.trim();
+            var status = document.getElementById("form-status");
+            var btnText = document.getElementById("btn-text");
+            var btnLoading = document.getElementById("btn-loading");
+
+            if (!name || !email || !message) {
+                status.style.display = "block";
+                status.style.color = "#e53935";
+                status.style.border = "1px solid #e53935";
+                status.textContent = "/ Please fill in all required fields.";
+                return;
+            }
+
+            btnText.style.display = "none";
+            btnLoading.style.display = "inline";
+            document.getElementById("form-submit-btn").style.opacity = "0.7";
+            document.getElementById("form-submit-btn").style.pointerEvents = "none";
+            status.style.display = "none";
+
+            // STEP 2: Replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID below
+            emailjs.send("service_5ryx2sg",       // ← your Service ID
+                "template_pkd6p3d", {
+                from_name: name,
+                from_email: email,
+                message: message,
+                reply_to: email
+            }
+            )
+                .then(function () {
+                    status.style.display = "block";
+                    status.style.color = "#00d4c8";
+                    status.style.border = "1px solid #00d4c8";
+                    status.textContent = "/ Transmission received. I'll respond within 24 hours.";
+                    document.getElementById("contact-name").value = "";
+                    document.getElementById("contact-email").value = "";
+                    document.getElementById("contact-message").value = "";
+                })
+                .catch(function (error) {
+                    status.style.display = "block";
+                    status.style.color = "#e53935";
+                    status.style.border = "1px solid #e53935";
+                    status.textContent = "/ Transmission failed. Please try again or email directly.";
+                    console.error("EmailJS error:", error);
+                })
+                .finally(function () {
+                    btnText.style.display = "inline";
+                    btnLoading.style.display = "none";
+                    document.getElementById("form-submit-btn").style.opacity = "1";
+                    document.getElementById("form-submit-btn").style.pointerEvents = "auto";
+                });
+        }
+    </script>
+
+    <script>
+        (function () {
+            function isLocalLink(href) {
+                return href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:') && !/^https?:\/\//i.test(href);
+            }
+
+            function fadeNavigate(target) {
+                document.body.classList.remove('is-visible');
+                setTimeout(function () {
+                    window.location.href = target;
+                }, 220);
+            }
+
+            window.addEventListener('DOMContentLoaded', function () {
+                document.body.classList.add('is-visible');
+                document.querySelectorAll('a[href]').forEach(function (link) {
+                    var href = link.getAttribute('href');
+                    if (!isLocalLink(href)) {
+                        return;
+                    }
+                    link.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        var target = link.href;
+                        if (target === window.location.href) {
+                            return;
+                        }
+                        fadeNavigate(target);
+                    });
+                });
+                document.addEventListener('click', function (event) {
+                    var item = event.target.closest('[data-href]');
+                    if (item && item.dataset.href && isLocalLink(item.dataset.href)) {
+                        event.preventDefault();
+                        fadeNavigate(item.dataset.href);
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>
+<style>
+    :root {
+        --background: #0b0f12;
+        --foreground: #e6eef7;
+        --border: #05242c;
+        --input: #0f1417;
+        --primary: #00d4ff;
+        --primary-foreground: #061018;
+        --secondary: #0d1a23;
+        --secondary-foreground: #a9b7c4;
+        --muted: #121418;
+        --muted-foreground: #6f7b84;
+        --success: #17c964;
+        --success-foreground: #07120b;
+        --accent: #00f0d6;
+        --accent-foreground: #031018;
+        --destructive: #ff5a6b;
+        --destructive-foreground: #2a0b0f;
+        --warning: #ffb86b;
+        --warning-foreground: #2a1406;
+        --card: #0c1114;
+        --card-foreground: #d7e6ef;
+        --sidebar: #081015;
+        --sidebar-foreground: #8fa6b2;
+        --sidebar-primary: #06242c;
+        --sidebar-primary-foreground: #bff7ff;
+        --radius-sm: 4px;
+        --radius-md: 6px;
+        --radius-lg: 8px;
+        --radius-xl: 12px;
+        --font-family-body: Inter;
+    }
+</style>

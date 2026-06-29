@@ -1,0 +1,800 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abhijit Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+        :root {
+            --background: #090d13;
+            --surface: #0f1724;
+            --surface-strong: #111a2b;
+            --foreground: #e6eef6;
+            --muted: #84a1c1;
+            --accent: #00e5c8;
+            --accent-soft: rgba(0, 229, 200, 0.18);
+            --border: rgba(255, 255, 255, 0.08);
+            --radius: 18px;
+            --radius-sm: 10px;
+            --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+            --font-body: 'Inter', system-ui, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: var(--font-body);
+            color: var(--foreground);
+            background: radial-gradient(circle at top left, rgba(0, 229, 200, 0.08), transparent 28%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.04), transparent 15%),
+                linear-gradient(180deg, #090d13 0%, #06090f 100%);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 48px 48px;
+            opacity: 0.45;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page-shell {
+            position: relative;
+            z-index: 1;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 26px 80px;
+        }
+
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 22px 0;
+            backdrop-filter: blur(18px);
+            background: rgba(9, 13, 19, 0.84);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--foreground);
+            font-weight: 700;
+        }
+
+        .brand .brand-mark {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: rgba(0, 229, 200, 0.14);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-weight: 700;
+        }
+
+        .site-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 24px;
+            font-size: 0.82rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .site-links a:hover,
+        .site-links a.active {
+            color: var(--foreground);
+        }
+
+        .site-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .button-outline,
+        .button-solid {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 12px 20px;
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .button-solid {
+            background: var(--accent);
+            color: #071014;
+        }
+
+        .button-outline {
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: var(--foreground);
+        }
+
+        .button-solid:hover,
+        .button-outline:hover {
+            transform: translateY(-1px);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 40px;
+            align-items: center;
+            padding: 80px 0 56px;
+            min-height: calc(100vh - 120px);
+        }
+
+        .hero-copy {
+            max-width: 640px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            color: var(--accent);
+            font-size: 0.82rem;
+            letter-spacing: 0.18em;
+            margin-bottom: 28px;
+        }
+
+        .hero-title {
+            font-size: clamp(3.8rem, 4.8vw, 5.6rem);
+            line-height: 0.98;
+            margin: 0;
+            letter-spacing: -0.04em;
+            max-width: 720px;
+        }
+
+        .hero-title span {
+            display: block;
+            color: var(--accent);
+        }
+
+        .hero-copy p {
+            max-width: 700px;
+            margin: 28px 0 36px;
+            font-size: 1rem;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(120px, 1fr));
+            gap: 16px;
+            margin-top: 36px;
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 20px;
+            min-height: 110px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .hero-card strong {
+            display: block;
+            color: var(--foreground);
+            font-size: 1.85rem;
+            line-height: 1;
+        }
+
+        .hero-card span {
+            color: var(--muted);
+            font-size: 0.84rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .hero-visual {
+            position: relative;
+            min-height: 520px;
+            padding: 32px;
+            background: linear-gradient(180deg, rgba(0, 229, 200, 0.14), rgba(0, 229, 200, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .hero-visual::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 25%, rgba(0, 229, 200, 0.16), transparent 22%),
+                radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.08), transparent 18%);
+            pointer-events: none;
+        }
+
+        .hero-visual .visual-panel {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: linear-gradient(180deg, rgba(9, 13, 19, 0.65), rgba(14, 20, 32, 0.9));
+            padding: 24px;
+            display: grid;
+            gap: 20px;
+        }
+
+        .visual-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .visual-header strong {
+            letter-spacing: 0.16em;
+            font-size: 0.72rem;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 0.78rem;
+            background: rgba(0, 229, 200, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(0, 229, 200, 0.18);
+        }
+
+        .hero-screen {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(6, minmax(24px, auto));
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .hero-tile {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            color: rgba(255, 255, 255, 0.62);
+            font-size: 0.74rem;
+            padding: 14px;
+        }
+
+        .hero-tile.highlight {
+            grid-column: span 3;
+            background: rgba(0, 229, 200, 0.12);
+            border-color: rgba(0, 229, 200, 0.24);
+            color: var(--foreground);
+        }
+
+        .hero-footer {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .status-chip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: rgba(0, 229, 200, 0.06);
+            border: 1px solid rgba(0, 229, 200, 0.12);
+            border-radius: 16px;
+            padding: 14px 18px;
+            min-height: 70px;
+        }
+
+        .status-chip strong {
+            font-size: 0.92rem;
+            color: var(--foreground);
+        }
+
+        .status-chip span {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .section {
+            margin-top: 80px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 34px;
+        }
+
+        .section-tag {
+            color: var(--accent);
+            letter-spacing: 0.18em;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            margin: 0;
+            font-size: clamp(2.4rem, 3vw, 3rem);
+            line-height: 1.05;
+            max-width: 740px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            max-width: 720px;
+            margin-top: 16px;
+            line-height: 1.9;
+        }
+
+        .projects-grid,
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .project-card,
+        .capability-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .project-card h3,
+        .capability-card h3 {
+            margin: 0;
+            font-size: 1.12rem;
+            color: var(--foreground);
+        }
+
+        .project-card p,
+        .capability-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .project-card .project-meta,
+        .capability-card .project-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--accent);
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .cta-strip {
+            margin-top: 72px;
+            padding: 40px;
+            background: rgba(0, 229, 200, 0.08);
+            border: 1px solid rgba(0, 229, 200, 0.14);
+            border-radius: 28px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .cta-strip h2 {
+            margin: 0;
+            font-size: clamp(2rem, 2.4vw, 2.6rem);
+            line-height: 1.05;
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .footer-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 220px;
+        }
+
+        .footer-group strong {
+            color: var(--foreground);
+            font-size: 0.92rem;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+        }
+
+        .footer-links a:hover {
+            color: var(--foreground);
+        }
+
+        .footer-bottom {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.82rem;
+        }
+
+        .hero-visual {
+            min-height: 520px;
+        }
+
+        @media (max-width: 1080px) {
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .hero-visual {
+                min-height: 420px;
+            }
+
+            .projects-grid,
+            .capabilities-grid,
+            .hero-footer {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .site-nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .site-links {
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .hero {
+                padding-top: 40px;
+            }
+
+            .hero-title {
+                font-size: clamp(2.6rem, 9vw, 4.2rem);
+            }
+        }
+    </style>
+    <style id="page-transition-styles">
+      body {
+        opacity: 0;
+        transition: opacity 0.26s ease;
+      }
+      body.is-visible {
+        opacity: 1;
+      }
+    </style>
+</head>
+
+<body>
+    <div class="page-shell">
+        <header class="site-nav">
+            <a class="brand" href="home.html">
+                <span class="brand-mark">AP</span>
+                ABHIJIT PORTFOLIO
+            </a>
+            <nav class="site-links">
+                <a href="dev journey.html">Dev Journey</a>
+                <a href="code works.html">Code Works</a>
+                <a href="tech stack.html">Tech Stack</a>
+                <a href="strengths.html">Strengths</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="site-actions">
+                <a class="button-outline" href="resume.pdf" download>
+                    Download Resume
+                </a>
+                <a class="button-solid" href="code works.html">
+                    View Projects
+                </a>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero" id="hero">
+                <div class="hero-copy">
+                    <div class="hero-eyebrow">Portfolio Init</div>
+                    <h1 class="hero-title">Hi, I’m Abhijit — <span>Full stack developer</span></h1>
+                    <p>Currently developing and designing high-performance web applications from Chennai,
+                        Tamil Nadu. My journey is built on clean code, practical full stack experience, and a
+                        strong problem-solving mindset.</p>
+                    <div class="hero-btns">
+                        <a class="button-solid" href="resume.pdf" download>
+                            Download Resume
+                        </a>
+                        <a class="button-outline" href="code works.html">
+                            View My Projects
+                        </a>
+                    </div>
+                    <div class="hero-grid">
+                        <div class="hero-card">
+                            <strong>6+</strong>
+                            <span>Languages known</span>
+                        </div>
+                        <div class="hero-card">
+                            <strong>15d</strong>
+                            <span>Internship experience</span>
+                        </div>
+                        <div class="hero-card">
+                            <strong>100%</strong>
+                            <span>Problem solved focus</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="visual-panel">
+                        <div class="visual-header">
+                            <strong>System Status</strong>
+                            <span class="status-pill"><span style="width:8px;height:8px;border-radius:50%;background:#00e5c8;display:inline-block;"></span> LIVE</span>
+                        </div>
+                        <div class="hero-screen">
+                            <div class="hero-tile highlight">PROJECTS ONLINE</div>
+                            <div class="hero-tile">NODE STATUS</div>
+                            <div class="hero-tile">AI TOOLS</div>
+                            <div class="hero-tile">SECURE STACK</div>
+                            <div class="hero-tile">BACKEND READY</div>
+                            <div class="hero-tile">UI / UX</div>
+                            <div class="hero-tile">PERFORMANCE</div>
+                            <div class="hero-tile">API FIRST</div>
+                            <div class="hero-tile highlight">CHENNAI BASED</div>
+                            <div class="hero-tile">FULL STACK</div>
+                            <div class="hero-tile">REACT / CSS</div>
+                            <div class="hero-tile">DATABASES</div>
+                            <div class="hero-tile">QUALITY</div>
+                            <div class="hero-tile">CLEAN CODE</div>
+                            <div class="hero-tile">SCALABLE</div>
+                            <div class="hero-tile">AGILE</div>
+                            <div class="hero-tile">COLLABORATION</div>
+                            <div class="hero-tile">FUTURE READY</div>
+                        </div>
+                        <div class="hero-footer">
+                            <div class="status-chip">
+                                <strong>Live Projects</strong>
+                                <span>12 active</span>
+                            </div>
+                            <div class="status-chip">
+                                <strong>Project Signal</strong>
+                                <span>Active</span>
+                            </div>
+                            <div class="status-chip">
+                                <strong>Team Ready</strong>
+                                <span>Available</span>
+                            </div>
+                            <div class="status-chip">
+                                <strong>Resolved</strong>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="featured-code">
+                <div class="section-header">
+                    <div>
+                        <div class="section-tag">03 — Selected Projects</div>
+                        <h2 class="section-title">Featured Code Works</h2>
+                        <p class="section-description">A collection of my development journey, showcasing full stack capabilities,
+                            structured logic, and the evolution of my technical craft.</p>
+                    </div>
+                    <a class="button-outline" href="code works.html">View All Projects</a>
+                </div>
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="project-meta">Portfolio V1</div>
+                        <h3>Modern developer landing page</h3>
+                        <p>Built a responsive portfolio interface with animation, strong visual hierarchy, and clean
+                            branding.</p>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-meta">Code Neptune</div>
+                        <h3>Professional internship project</h3>
+                        <p>Delivered structured front-end components and full stack integration during real-world
+                            development exposure.</p>
+                    </article>
+                    <article class="project-card">
+                        <div class="project-meta">System Architecture</div>
+                        <h3>Scalable application design</h3>
+                        <p>Designed an architecture with clear data flow, reusable components, and a focus on
+                            maintainability.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="capabilities">
+                <div class="section-header">
+                    <div>
+                        <div class="section-tag">05 — Technical strengths</div>
+                        <h2 class="section-title">Engineered for high-performance logic.</h2>
+                        <p class="section-description">Core technical capabilities that support large-scale applications,
+                            from client-side interaction to backend architecture and AI-assisted development.</p>
+                    </div>
+                </div>
+                <div class="capabilities-grid">
+                    <article class="capability-card">
+                        <div class="project-meta">Full Stack</div>
+                        <h3>End-to-end engineering</h3>
+                        <p>Building interfaces and server systems together for smooth, maintainable application flows.</p>
+                    </article>
+                    <article class="capability-card">
+                        <div class="project-meta">Problem Solver</div>
+                        <h3>Critical debugging</h3>
+                        <p>Analyzing and resolving architectural and code issues with precision and efficiency.</p>
+                    </article>
+                    <article class="capability-card">
+                        <div class="project-meta">Languages</div>
+                        <h3>6+ programming languages</h3>
+                        <p>Adaptable across JavaScript, TypeScript, Node.js, Python, SQL, and modern front-end stacks.</p>
+                    </article>
+                    <article class="capability-card">
+                        <div class="project-meta">Internship</div>
+                        <h3>Hands-on experience</h3>
+                        <p>Real-world development practice during a professional internship at Code Neptune.</p>
+                    </article>
+                    <article class="capability-card">
+                        <div class="project-meta">AI tools</div>
+                        <h3>Smart development</h3>
+                        <p>Leveraging AI-assisted tooling to accelerate workflows and improve code quality.</p>
+                    </article>
+                    <article class="capability-card">
+                        <div class="project-meta">React & CSS</div>
+                        <h3>Interface craftsmanship</h3>
+                        <p>Creating responsive visual experiences using modern front-end frameworks and styling systems.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="cta-strip">
+                <div>
+                    <h2>Let's build something extraordinary together.</h2>
+                    <p style="margin: 16px 0 0; color: var(--muted); max-width: 620px;">If you have a project, idea, or collaboration in mind, I’m ready to help turn it into a polished,
+                        production-ready solution.</p>
+                </div>
+                <a class="button-solid" href="contact.html">Contact Abhijit</a>
+            </section>
+
+            <footer class="footer">
+                <div class="footer-group">
+                    <strong>Navigation</strong>
+                    <div class="footer-links"><a href="home.html">Home</a></div>
+                    <div class="footer-links"><a href="code works.html">Projects</a></div>
+                    <div class="footer-links"><a href="contact.html">Contact</a></div>
+                </div>
+                <div class="footer-group">
+                    <strong>Resources</strong>
+                    <div class="footer-links"><a href="tech stack.html">Tech Stack</a></div>
+                    <div class="footer-links"><a href="strengths.html">Strengths</a></div>
+                    <div class="footer-links"><a href="resume.pdf" download>Resume</a></div>
+                </div>
+                <div class="footer-group">
+                    <strong>Connect</strong>
+                    <div class="footer-links"><a href="mailto:vabi3388@gmail.com">Email</a></div>
+                    <div class="footer-links"><a href="tel:9840549063">Phone</a></div>
+                </div>
+                <div class="footer-group">
+                    <strong>Location</strong>
+                    <span>Chennai, Tamil Nadu</span>
+                </div>
+            </footer>
+            <div class="footer-bottom">
+                <span>© 2026 Abhijit Portfolio · Based in Chennai, Tamil Nadu</span>
+                <span>Privacy · Terms · Cookies</span>
+            </div>
+        </main>
+    </div>
+  <script>
+  (function() {
+    function isLocalLink(href) {
+      return href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:') && !/^https?:\/\//i.test(href);
+    }
+
+    function fadeNavigate(target) {
+      document.body.classList.remove('is-visible');
+      setTimeout(function() {
+        window.location.href = target;
+      }, 220);
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      document.body.classList.add('is-visible');
+      document.querySelectorAll('a[href]').forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (!isLocalLink(href)) {
+          return;
+        }
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          var target = link.href;
+          if (target === window.location.href) {
+            return;
+          }
+          fadeNavigate(target);
+        });
+      });
+      document.addEventListener('click', function(event) {
+        var item = event.target.closest('[data-href]');
+        if (item && item.dataset.href && isLocalLink(item.dataset.href)) {
+          event.preventDefault();
+          fadeNavigate(item.dataset.href);
+        }
+      });
+    });
+  })();
+  </script>
+</body>
+
+</html>

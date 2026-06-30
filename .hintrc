@@ -29,6 +29,12 @@
       {
         "link-name": "off"
       }
+    ],
+    "axe/structure": [
+      "default",
+      {
+        "listitem": "off"
+      }
     ]
   },
   "browserslist": [

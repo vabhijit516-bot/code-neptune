@@ -168,6 +168,14 @@
             min-height: 100vh;
             background: var(--background, #0d1117);
             padding-top: 82px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.05s ease, transform 0.05s ease;
+        }
+
+        body.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
     <style id="section-styles">
@@ -245,6 +253,8 @@
             display: flex;
             flex-direction: column;
             margin-bottom: 48px;
+            opacity: 1;
+            transform: none;
         }
 
         .project-image-wrap {
@@ -578,28 +588,47 @@
         }
     </style>
     <style id="page-transition-styles">
-      body {
-        opacity: 0;
-        transition: opacity 0.26s ease;
-      }
-      body.is-visible {
-        opacity: 1;
-      }
+        body {
+            opacity: 0;
+            transition: opacity 0.26s ease;
+        }
+
+        body.is-visible {
+            opacity: 1;
+        }
+    </style>
+    <style>
+        .page-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 28px 48px 48px;
+            color: var(--muted-foreground);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 40px;
+        }
+
+        .page-footer a {
+            color: inherit;
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Navbar -->
     <nav id="navbar">
-        <div id="navbar-logo">
-            <span class="dash">—</span>
-            ABHIJIT · PORT<span class="logo-accent">F</span>OLIO
-        </div>
+        <div id="navbar-logo"><span class="logo-accent">AP</span><span class="dash">—</span>ABHIJIT PORTFOLIO</div>
         <ul id="nav-links">
-            <li><a href="dev journey.html" data-media-type="banani-button">DEV JOURNEY</a></li>
-            <li><a href="code works.html" data-media-type="banani-button">CODE WORKS</a></li>
-            <li><a href="tech stack.html" data-media-type="banani-button">TECH STACK</a></li>
-            <li><a href="strengths.html" data-media-type="banani-button">STRENGTHS</a></li>
+            <li><a href="dev journey.html">Dev Journey</a></li>
+            <li><a href="code works.html">Code Works</a></li>
+            <li><a href="tech stack.html">Tech Stack</a></li>
+            <li><a href="strengths.html">Strengths</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
         <div id="nav-search-wrapper">
             <input id="nav-search" type="search" placeholder="Search pages…" autocomplete="off" />
@@ -640,7 +669,7 @@
                         <div class="project-meta-top">
                             <span class="project-tag">WEB APP</span>
                             <div style="display: flex; align-items: center; gap: 8px">
-                                <span class="project-year">2024</span>
+                                <span class="project-year">2026</span>
                                 <div class="arrow-link">
                                     <div style="
                           width: 18px;
@@ -676,7 +705,7 @@
                         <div class="project-meta-top">
                             <span class="project-tag">FULL STACK</span>
                             <div style="display: flex; align-items: center; gap: 8px">
-                                <span class="project-year">2024</span>
+                                <span class="project-year">2026</span>
                                 <div class="arrow-link">
                                     <div style="
                           width: 18px;
@@ -745,7 +774,7 @@
                             <div class="code-runner-content">
                                 <div class="code-line">
                                     <span class="c-comment"># system_architecture.py — Structured Systems ·
-                                        2024</span>
+                                        2026</span>
                                 </div>
                                 <div class="code-line">&nbsp;</div>
                                 <div class="code-line">
@@ -872,7 +901,7 @@
                     <div class="project-meta-top">
                         <span class="project-tag">BACKEND</span>
                         <div style="display: flex; align-items: center; gap: 8px">
-                            <span class="project-year">2024</span>
+                            <span class="project-year">2026</span>
                             <div class="arrow-link">
                                 <div style="
                         width: 18px;
@@ -911,6 +940,118 @@
             </div>
         </div>
     </div>
+    <footer class="page-footer">
+        <span>© 2026 Abhijit Portfolio</span>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+            <a href="home.html">Home</a>
+            <a href="strengths.html">Strengths</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
+    <script type="module">
+        // Use the ESM build of anime.js and call the `anime()` function with `targets`.
+        import anime from 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.es.js';
+
+        const cards = document.querySelectorAll('.project-card');
+
+        function runReveal(targetElem, opts) {
+            // ensure a valid target
+            if (!targetElem) return;
+            const base = Object.assign({ targets: targetElem }, opts);
+            anime(base);
+        }
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+
+                    const index = Array.from(cards).indexOf(entry.target);
+                    const imageWrap = entry.target.querySelector('.project-image-wrap');
+                    const meta = entry.target.querySelector('.project-meta');
+
+                    runReveal(entry.target, {
+                        opacity: [0, 1],
+                        translateY: [28, 0],
+                        scale: [0.98, 1],
+                        duration: 800,
+                        delay: index * 120,
+                        easing: 'easeOutCubic'
+                    });
+
+                    if (imageWrap) {
+                        runReveal(imageWrap, {
+                            opacity: [0, 1],
+                            translateY: [20, 0],
+                            duration: 700,
+                            delay: index * 120 + 80,
+                            easing: 'easeOutCubic'
+                        });
+                    }
+
+                    if (meta) {
+                        runReveal(meta, {
+                            opacity: [0, 1],
+                            translateY: [16, 0],
+                            duration: 700,
+                            delay: index * 120 + 140,
+                            easing: 'easeOutCubic'
+                        });
+                    }
+
+                    obs.unobserve(entry.target);
+                });
+            }, { threshold: 0.16 });
+
+            cards.forEach((card) => observer.observe(card));
+        } else {
+            cards.forEach((card, index) => {
+                const imageWrap = card.querySelector('.project-image-wrap');
+                const meta = card.querySelector('.project-meta');
+
+                runReveal(card, {
+                    opacity: [0, 1],
+                    translateY: [28, 0],
+                    scale: [0.98, 1],
+                    duration: 800,
+                    delay: index * 120,
+                    easing: 'easeOutCubic'
+                });
+
+                if (imageWrap) {
+                    runReveal(imageWrap, {
+                        opacity: [0, 1],
+                        translateY: [20, 0],
+                        duration: 700,
+                        delay: index * 120 + 80,
+                        easing: 'easeOutCubic'
+                    });
+                }
+
+                if (meta) {
+                    runReveal(meta, {
+                        opacity: [0, 1],
+                        translateY: [16, 0],
+                        duration: 700,
+                        delay: index * 120 + 140,
+                        easing: 'easeOutCubic'
+                    });
+                }
+            });
+        }
+    </script>
+    <script>
+        // Safety fallback: ensure project cards are visible if animations didn't run
+        setTimeout(function () {
+            document.querySelectorAll('.project-card').forEach(function (card) {
+                var style = window.getComputedStyle(card);
+                if (style.opacity === '0' || style.display === 'none') {
+                    card.style.opacity = '1';
+                    card.style.transform = 'none';
+                }
+            });
+        }, 700);
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const pages = [
@@ -969,45 +1110,47 @@
             });
         });
     </script>
-  <script>
-  (function() {
-    function isLocalLink(href) {
-      return href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:') && !/^https?:\/\//i.test(href);
-    }
+    <script>
+        (function () {
+            function isLocalLink(href) {
+                return href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:') && !/^https?:\/\//i.test(href);
+            }
 
-    function fadeNavigate(target) {
-      document.body.classList.remove('is-visible');
-      setTimeout(function() {
-        window.location.href = target;
-      }, 220);
-    }
+            function fadeNavigate(target) {
+                document.body.classList.remove('is-visible');
+                setTimeout(function () {
+                    window.location.href = target;
+                }, 50);
+            }
 
-    window.addEventListener('DOMContentLoaded', function() {
-      document.body.classList.add('is-visible');
-      document.querySelectorAll('a[href]').forEach(function(link) {
-        var href = link.getAttribute('href');
-        if (!isLocalLink(href)) {
-          return;
-        }
-        link.addEventListener('click', function(event) {
-          event.preventDefault();
-          var target = link.href;
-          if (target === window.location.href) {
-            return;
-          }
-          fadeNavigate(target);
-        });
-      });
-      document.addEventListener('click', function(event) {
-        var item = event.target.closest('[data-href]');
-        if (item && item.dataset.href && isLocalLink(item.dataset.href)) {
-          event.preventDefault();
-          fadeNavigate(item.dataset.href);
-        }
-      });
-    });
-  })();
-  </script>
+            window.addEventListener('DOMContentLoaded', function () {
+                setTimeout(function () {
+                    document.body.classList.add('is-visible');
+                }, 50);
+                document.querySelectorAll('a[href]').forEach(function (link) {
+                    var href = link.getAttribute('href');
+                    if (!isLocalLink(href)) {
+                        return;
+                    }
+                    link.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        var target = link.href;
+                        if (target === window.location.href) {
+                            return;
+                        }
+                        fadeNavigate(target);
+                    });
+                });
+                document.addEventListener('click', function (event) {
+                    var item = event.target.closest('[data-href]');
+                    if (item && item.dataset.href && isLocalLink(item.dataset.href)) {
+                        event.preventDefault();
+                        fadeNavigate(item.dataset.href);
+                    }
+                });
+            });
+        })();
+    </script>
 </body>
 
 </html>

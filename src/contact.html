@@ -249,6 +249,65 @@
             max-width: 1200px;
         }
 
+        @media (max-width: 920px) {
+            .contact-section {
+                padding: 48px 28px;
+            }
+
+            .contact-inner {
+                flex-direction: column;
+                gap: 28px;
+                max-width: 100%;
+            }
+
+            .contact-left {
+                flex: none;
+                width: 100%;
+            }
+
+            .contact-right {
+                flex: none;
+                width: 100%;
+            }
+
+            .contact-heading {
+                font-size: 40px;
+            }
+
+            .form-card {
+                padding: 28px;
+            }
+
+            .form-input,
+            .form-textarea {
+                font-size: 15px;
+            }
+
+            .hero-cta-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-section {
+                padding: 28px 16px;
+            }
+
+            .contact-heading {
+                font-size: 32px;
+            }
+
+            .form-card {
+                padding: 20px;
+            }
+
+            .form-submit-btn {
+                padding: 12px;
+                font-size: 13px;
+            }
+        }
+
         .contact-left {
             flex: 0 0 340px;
         }
@@ -464,6 +523,7 @@
         .footer-section {
             background-color: var(--bg-darker);
             padding: 80px 60px 40px;
+            position: relative;
         }
 
         .footer-top {
@@ -572,6 +632,18 @@
             cursor: pointer;
             text-decoration: none;
         }
+
+        .watermark {
+            position: absolute;
+            right: 36px;
+            bottom: 18px;
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--text-primary);
+            opacity: 0.04;
+            pointer-events: none;
+            letter-spacing: 0.12em;
+        }
     </style>
 
     <style id="glow-border-styles">
@@ -596,11 +668,13 @@
     <style id="page-transition-styles">
         body {
             opacity: 0;
-            transition: opacity 0.26s ease;
+            transform: translateY(8px);
+            transition: opacity 0.05s ease, transform 0.05s ease;
         }
 
         body.is-visible {
             opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -813,9 +887,9 @@
                 <div>
                     <div class="footer-col-title">NAVIGATION</div>
                     <ul class="footer-col-links">
-                        <li data-media-type="banani-button">Home</li>
-                        <li data-media-type="banani-button">Projects</li>
-                        <li data-media-type="banani-button">Experience</li>
+                        <li><a href="home.html" data-media-type="banani-button">Home</a></li>
+                        <li><a href="code works.html" data-media-type="banani-button">Projects</a></li>
+                        <li><a href="dev journey.html" data-media-type="banani-button">Experience</a></li>
                     </ul>
                 </div>
                 <div>
@@ -833,10 +907,10 @@
                 <div>
                     <div class="footer-col-title">SITE MAP</div>
                     <ul class="footer-col-links">
-                        <li data-media-type="banani-button">Dev Journey</li>
-                        <li data-media-type="banani-button">Code Works</li>
-                        <li data-media-type="banani-button">Tech Stack</li>
-                        <li data-media-type="banani-button">Strengths</li>
+                        <li><a href="dev journey.html" data-media-type="banani-button">Dev Journey</a></li>
+                        <li><a href="code works.html" data-media-type="banani-button">Code Works</a></li>
+                        <li><a href="tech stack.html" data-media-type="banani-button">Tech Stack</a></li>
+                        <li><a href="strengths.html" data-media-type="banani-button">Strengths</a></li>
                     </ul>
                 </div>
             </div>
@@ -847,26 +921,35 @@
                 © 2026 Abhijit Portfolio · Based in Chennai, Tamil Nadu
             </div>
             <div class="footer-legal">
-                <a data-media-type="banani-button">Privacy</a>
-                <a data-media-type="banani-button">Terms</a>
-                <a data-media-type="banani-button">Cookies</a>
+                <a href="#" data-media-type="banani-button">Privacy</a>
+                <a href="#" data-media-type="banani-button">Terms</a>
+                <a href="#" data-media-type="banani-button">Cookies</a>
             </div>
             <div class="watermark">ABHIJIT</div>
         </div>
     </footer>
     <!-- ========= EmailJS SDK ========= -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- ========= Supabase SDK ========= -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // STEP 1: Replace with your EmailJS Public Key
+        // ── Supabase config ───────────────────────────────────────────
+        const SUPABASE_URL = "https://fltszwzyfsvbuybgteba.supabase.co";
+        const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZsdHN6d3p5ZnN2YnV5Ymd0ZWJhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3MjAxNzgsImV4cCI6MjA5ODI5NjE3OH0.pXEsprKDQC1yEk0LJU7ZDxamUim2bdmzcttfLELLaQI";
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+        // ── EmailJS config ────────────────────────────────────────────
         emailjs.init("0Q6VBZHhuO2YtBoenur");
 
-        function handleContactSubmit() {
+        // ── Form handler ──────────────────────────────────────────────
+        async function handleContactSubmit() {
             var name = document.getElementById("contact-name").value.trim();
             var email = document.getElementById("contact-email").value.trim();
             var message = document.getElementById("contact-message").value.trim();
             var status = document.getElementById("form-status");
             var btnText = document.getElementById("btn-text");
             var btnLoading = document.getElementById("btn-loading");
+            var submitBtn = document.getElementById("form-submit-btn");
 
             if (!name || !email || !message) {
                 status.style.display = "block";
@@ -878,41 +961,45 @@
 
             btnText.style.display = "none";
             btnLoading.style.display = "inline";
-            document.getElementById("form-submit-btn").style.opacity = "0.7";
-            document.getElementById("form-submit-btn").style.pointerEvents = "none";
+            submitBtn.style.opacity = "0.7";
+            submitBtn.style.pointerEvents = "none";
             status.style.display = "none";
 
-            // STEP 2: Replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID below
-            emailjs.send("service_5ryx2sg",       // ← your Service ID
-                "template_pkd6p3d", {
-                from_name: name,
-                from_email: email,
-                message: message,
-                reply_to: email
-            }
-            )
-                .then(function () {
-                    status.style.display = "block";
-                    status.style.color = "#00d4c8";
-                    status.style.border = "1px solid #00d4c8";
-                    status.textContent = "/ Transmission received. I'll respond within 24 hours.";
-                    document.getElementById("contact-name").value = "";
-                    document.getElementById("contact-email").value = "";
-                    document.getElementById("contact-message").value = "";
-                })
-                .catch(function (error) {
-                    status.style.display = "block";
-                    status.style.color = "#e53935";
-                    status.style.border = "1px solid #e53935";
-                    status.textContent = "/ Transmission failed. Please try again or email directly.";
-                    console.error("EmailJS error:", error);
-                })
-                .finally(function () {
-                    btnText.style.display = "inline";
-                    btnLoading.style.display = "none";
-                    document.getElementById("form-submit-btn").style.opacity = "1";
-                    document.getElementById("form-submit-btn").style.pointerEvents = "auto";
+            try {
+                // 1. Save to Supabase
+                const { error: dbError } = await _supabase
+                    .from("contact_messages")
+                    .insert({ name, email, message });
+                if (dbError) console.warn("Supabase:", dbError.message);
+
+                // 2. Send email via EmailJS
+                await emailjs.send("service_5ryx2sg", "template_pkd6p3d", {
+                    from_name: name,
+                    from_email: email,
+                    message: message,
+                    reply_to: email
                 });
+
+                status.style.display = "block";
+                status.style.color = "#00d4c8";
+                status.style.border = "1px solid #00d4c8";
+                status.textContent = "/ Transmission received. I'll respond within 24 hours.";
+                document.getElementById("contact-name").value = "";
+                document.getElementById("contact-email").value = "";
+                document.getElementById("contact-message").value = "";
+
+            } catch (error) {
+                status.style.display = "block";
+                status.style.color = "#e53935";
+                status.style.border = "1px solid #e53935";
+                status.textContent = "/ Transmission failed. Please try again or email directly.";
+                console.error("Submit error:", error);
+            } finally {
+                btnText.style.display = "inline";
+                btnLoading.style.display = "none";
+                submitBtn.style.opacity = "1";
+                submitBtn.style.pointerEvents = "auto";
+            }
         }
     </script>
 
@@ -926,11 +1013,13 @@
                 document.body.classList.remove('is-visible');
                 setTimeout(function () {
                     window.location.href = target;
-                }, 220);
+                }, 50);
             }
 
             window.addEventListener('DOMContentLoaded', function () {
-                document.body.classList.add('is-visible');
+                setTimeout(function () {
+                    document.body.classList.add('is-visible');
+                }, 50);
                 document.querySelectorAll('a[href]').forEach(function (link) {
                     var href = link.getAttribute('href');
                     if (!isLocalLink(href)) {

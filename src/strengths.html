@@ -7,7 +7,9 @@
     <title>ANALYST:FAST API</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100;200;300;400;500;600;700;800;900&family=Geist:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=PT+Serif:wght@400;700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Shantell+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@100;200;300;400;500;600;700;800;900&family=Geist:wght@100;200;300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:wght@200;300;400;500;600;700;800;900&family=PT+Serif:wght@400;700&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Shantell+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <style id="reset-base">
         * {
@@ -316,6 +318,44 @@
             position: relative;
             z-index: 1;
             border-left: 2px solid transparent;
+            opacity: 0;
+            transform: translateX(24px);
+            transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .feature-item.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .feature-item:hover {
+            transform: translateX(8px);
+        }
+
+        .hero-left,
+        .hero-right {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .hero-left.is-visible,
+        .hero-right.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-image-container {
+            overflow: hidden;
+        }
+
+        .hero-image-container img {
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.8s ease;
+        }
+
+        .hero-image-container.is-visible img {
+            transform: scale(1.03);
+            filter: brightness(0.82) saturate(0.92) hue-rotate(100deg);
         }
 
         .feature-icon {
@@ -551,8 +591,10 @@
 
                         <div class="feature-item active" onclick="selectFeature(this)" data-media-type="banani-button">
                             <div class="feature-icon">
-                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
-                                    <iconify-icon icon="lucide:zap" style="font-size: 16px; color: var(--neon)"></iconify-icon>
+                                <div
+                                    style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:zap"
+                                        style="font-size: 16px; color: var(--neon)"></iconify-icon>
                                 </div>
                             </div>
                             <div class="feature-content">
@@ -570,8 +612,10 @@
 
                         <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
                             <div class="feature-icon">
-                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
-                                    <iconify-icon icon="lucide:shield" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                <div
+                                    style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:shield"
+                                        style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
                                 </div>
                             </div>
                             <div class="feature-content">
@@ -589,8 +633,10 @@
 
                         <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
                             <div class="feature-icon">
-                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
-                                    <iconify-icon icon="lucide:code-2" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                <div
+                                    style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:code-2"
+                                        style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
                                 </div>
                             </div>
                             <div class="feature-content">
@@ -607,8 +653,10 @@
 
                         <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
                             <div class="feature-icon">
-                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
-                                    <iconify-icon icon="lucide:circle-check" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                <div
+                                    style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:circle-check"
+                                        style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
                                 </div>
                             </div>
                             <div class="feature-content">
@@ -625,8 +673,10 @@
 
                         <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
                             <div class="feature-icon">
-                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
-                                    <iconify-icon icon="lucide:bar-chart-2" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                <div
+                                    style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:bar-chart-2"
+                                        style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
                                 </div>
                             </div>
                             <div class="feature-content">
@@ -644,8 +694,10 @@
 
                         <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
                             <div class="feature-icon">
-                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
-                                    <iconify-icon icon="lucide:database" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                <div
+                                    style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:database"
+                                        style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
                                 </div>
                             </div>
                             <div class="feature-content">
@@ -663,8 +715,10 @@
 
                         <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
                             <div class="feature-icon">
-                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
-                                    <iconify-icon icon="lucide:webhook" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                <div
+                                    style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:webhook"
+                                        style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
                                 </div>
                             </div>
                             <div class="feature-content">
@@ -682,8 +736,10 @@
 
                         <div class="feature-item" onclick="selectFeature(this)" data-media-type="banani-button">
                             <div class="feature-icon">
-                                <div style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
-                                    <iconify-icon icon="lucide:plug" style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
+                                <div
+                                    style="width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;">
+                                    <iconify-icon icon="lucide:plug"
+                                        style="font-size: 16px; color: var(--text-muted)"></iconify-icon>
                                 </div>
                             </div>
                             <div class="feature-content">
@@ -724,13 +780,33 @@
             var track = document.getElementById('features-track');
             var highlight = document.getElementById('sliding-highlight');
             var firstActive = document.querySelector('.feature-item.active');
+            var heroLeft = document.getElementById('hero-left');
+            var heroRight = document.getElementById('hero-right');
+            var heroImage = document.querySelector('.hero-image-container');
+            var items = document.querySelectorAll('.feature-item');
 
-            if (track ; highlight ; firstActive) {
+            if (track && highlight && firstActive) {
                 var trackRect = track.getBoundingClientRect();
                 var elRect = firstActive.getBoundingClientRect();
                 highlight.style.top = (elRect.top - trackRect.top) + 'px';
                 highlight.style.height = elRect.height + 'px';
             }
+
+            if (heroLeft) {
+                heroLeft.classList.add('is-visible');
+            }
+            if (heroRight) {
+                heroRight.classList.add('is-visible');
+            }
+            if (heroImage) {
+                heroImage.classList.add('is-visible');
+            }
+
+            items.forEach(function (item, index) {
+                setTimeout(function () {
+                    item.classList.add('is-visible');
+                }, 120 + index * 70);
+            });
         });
     </script>
 </body>

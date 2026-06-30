@@ -61,22 +61,22 @@
                 transform: translateY(-20px);
             }
 
-            to {
+            body {
+                opacity: 0;
+                transform: translateY(8px);
+                transition: opacity 0.05s ease, transform 0.05s ease;
+            }
+
+            body.is-visible {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(28px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
         }
 
         @keyframes fadeInLeft {
@@ -310,6 +310,14 @@
             min-height: 100vh;
             background: var(--background, #0d1117);
             padding-top: 72px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.05s ease, transform 0.05s ease;
+        }
+
+        body.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .nav-logo {
@@ -699,13 +707,35 @@
         }
     </style>
     <style id="page-transition-styles">
-      body {
-        opacity: 0;
-        transition: opacity 0.26s ease;
-      }
-      body.is-visible {
-        opacity: 1;
-      }
+        body {
+            opacity: 0;
+            transition: opacity 0.26s ease;
+        }
+
+        body.is-visible {
+            opacity: 1;
+        }
+    </style>
+    <style>
+        .page-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 28px 48px 48px;
+            color: var(--muted-foreground);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 40px;
+        }
+
+        .page-footer a {
+            color: inherit;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -829,6 +859,14 @@
             </div>
         </div>
     </div>
+    <footer class="page-footer">
+        <span>© 2026 Abhijit Portfolio</span>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+            <a href="home.html">Home</a>
+            <a href="code works.html">Projects</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const pages = [
@@ -883,45 +921,47 @@
             });
         });
     </script>
-  <script>
-  (function() {
-    function isLocalLink(href) {
-      return href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:') && !/^https?:\/\//i.test(href);
-    }
+    <script>
+        (function () {
+            function isLocalLink(href) {
+                return href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:') && !/^https?:\/\//i.test(href);
+            }
 
-    function fadeNavigate(target) {
-      document.body.classList.remove('is-visible');
-      setTimeout(function() {
-        window.location.href = target;
-      }, 220);
-    }
+            function fadeNavigate(target) {
+                document.body.classList.remove('is-visible');
+                setTimeout(function () {
+                    window.location.href = target;
+                }, 50);
+            }
 
-    window.addEventListener('DOMContentLoaded', function() {
-      document.body.classList.add('is-visible');
-      document.querySelectorAll('a[href]').forEach(function(link) {
-        var href = link.getAttribute('href');
-        if (!isLocalLink(href)) {
-          return;
-        }
-        link.addEventListener('click', function(event) {
-          event.preventDefault();
-          var target = link.href;
-          if (target === window.location.href) {
-            return;
-          }
-          fadeNavigate(target);
-        });
-      });
-      document.addEventListener('click', function(event) {
-        var item = event.target.closest('[data-href]');
-        if (item && item.dataset.href && isLocalLink(item.dataset.href)) {
-          event.preventDefault();
-          fadeNavigate(item.dataset.href);
-        }
-      });
-    });
-  })();
-  </script>
+            window.addEventListener('DOMContentLoaded', function () {
+                setTimeout(function () {
+                    document.body.classList.add('is-visible');
+                }, 50);
+                document.querySelectorAll('a[href]').forEach(function (link) {
+                    var href = link.getAttribute('href');
+                    if (!isLocalLink(href)) {
+                        return;
+                    }
+                    link.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        var target = link.href;
+                        if (target === window.location.href) {
+                            return;
+                        }
+                        fadeNavigate(target);
+                    });
+                });
+                document.addEventListener('click', function (event) {
+                    var item = event.target.closest('[data-href]');
+                    if (item && item.dataset.href && isLocalLink(item.dataset.href)) {
+                        event.preventDefault();
+                        fadeNavigate(item.dataset.href);
+                    }
+                });
+            });
+        })();
+    </script>
 </body>
 
 </html>

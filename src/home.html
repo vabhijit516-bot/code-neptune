@@ -1,13 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
+
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abhijit Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <style>
         :root {
@@ -26,7 +30,9 @@
             --font-mono: 'IBM Plex Mono', monospace;
         }
 
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
         }
 
@@ -264,6 +270,57 @@
             padding: 24px;
             display: grid;
             gap: 20px;
+            overflow: hidden;
+        }
+
+        .full-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.95;
+        }
+
+        .visual-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            gap: 20px;
+        }
+
+        .hero-copy,
+        .hero-visual {
+            opacity: 0;
+            transform: translateY(18px);
+            animation: heroFadeUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .hero-visual {
+            animation-delay: 140ms;
+        }
+
+        .hero-card,
+        .hero-tile,
+        .status-chip {
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .hero-card:hover,
+        .hero-tile:hover,
+        .status-chip:hover {
+            transform: translateY(-3px);
+        }
+
+        @keyframes heroFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .visual-header {
@@ -455,6 +512,35 @@
             font-size: 0.92rem;
         }
 
+        /* Square transform helper and glow bar */
+        .square {
+            display: inline-block;
+            transform-origin: center center;
+            will-change: transform;
+            position: relative;
+        }
+
+        .square::after {
+            content: '';
+            position: absolute;
+            left: 6%;
+            right: 6%;
+            bottom: -10px;
+            height: 4px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, rgba(0, 229, 200, 0.95), rgba(0, 212, 200, 0.6));
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 260ms ease, transform 260ms ease;
+            pointer-events: none;
+        }
+
+        .square.glow::after {
+            opacity: 1;
+            transform: translateY(0);
+            box-shadow: 0 6px 24px rgba(0, 229, 200, 0.12);
+        }
+
         .footer-group {
             display: flex;
             flex-direction: column;
@@ -529,13 +615,14 @@
         }
     </style>
     <style id="page-transition-styles">
-      body {
-        opacity: 0;
-        transition: opacity 0.26s ease;
-      }
-      body.is-visible {
-        opacity: 1;
-      }
+        body {
+            opacity: 0;
+            transition: opacity 0.05s ease;
+        }
+
+        body.is-visible {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -597,46 +684,51 @@
 
                 <div class="hero-visual">
                     <div class="visual-panel">
-                        <div class="visual-header">
-                            <strong>System Status</strong>
-                            <span class="status-pill"><span style="width:8px;height:8px;border-radius:50%;background:#00e5c8;display:inline-block;"></span> LIVE</span>
-                        </div>
-                        <div class="hero-screen">
-                            <div class="hero-tile highlight">PROJECTS ONLINE</div>
-                            <div class="hero-tile">NODE STATUS</div>
-                            <div class="hero-tile">AI TOOLS</div>
-                            <div class="hero-tile">SECURE STACK</div>
-                            <div class="hero-tile">BACKEND READY</div>
-                            <div class="hero-tile">UI / UX</div>
-                            <div class="hero-tile">PERFORMANCE</div>
-                            <div class="hero-tile">API FIRST</div>
-                            <div class="hero-tile highlight">CHENNAI BASED</div>
-                            <div class="hero-tile">FULL STACK</div>
-                            <div class="hero-tile">REACT / CSS</div>
-                            <div class="hero-tile">DATABASES</div>
-                            <div class="hero-tile">QUALITY</div>
-                            <div class="hero-tile">CLEAN CODE</div>
-                            <div class="hero-tile">SCALABLE</div>
-                            <div class="hero-tile">AGILE</div>
-                            <div class="hero-tile">COLLABORATION</div>
-                            <div class="hero-tile">FUTURE READY</div>
-                        </div>
-                        <div class="hero-footer">
-                            <div class="status-chip">
-                                <strong>Live Projects</strong>
-                                <span>12 active</span>
+                        <div class="full-container" aria-hidden="true"></div>
+                        <div class="visual-content">
+                            <div class="visual-header">
+                                <strong>System Status</strong>
+                                <span class="status-pill"><span
+                                        style="width:8px;height:8px;border-radius:50%;background:#00e5c8;display:inline-block;"></span>
+                                    LIVE</span>
                             </div>
-                            <div class="status-chip">
-                                <strong>Project Signal</strong>
-                                <span>Active</span>
+                            <div class="hero-screen">
+                                <div class="hero-tile highlight">PROJECTS ONLINE</div>
+                                <div class="hero-tile">NODE STATUS</div>
+                                <div class="hero-tile">AI TOOLS</div>
+                                <div class="hero-tile">SECURE STACK</div>
+                                <div class="hero-tile">BACKEND READY</div>
+                                <div class="hero-tile">UI / UX</div>
+                                <div class="hero-tile">PERFORMANCE</div>
+                                <div class="hero-tile">API FIRST</div>
+                                <div class="hero-tile highlight">CHENNAI BASED</div>
+                                <div class="hero-tile">FULL STACK</div>
+                                <div class="hero-tile">REACT / CSS</div>
+                                <div class="hero-tile">DATABASES</div>
+                                <div class="hero-tile">QUALITY</div>
+                                <div class="hero-tile">CLEAN CODE</div>
+                                <div class="hero-tile">SCALABLE</div>
+                                <div class="hero-tile">AGILE</div>
+                                <div class="hero-tile">COLLABORATION</div>
+                                <div class="hero-tile">FUTURE READY</div>
                             </div>
-                            <div class="status-chip">
-                                <strong>Team Ready</strong>
-                                <span>Available</span>
-                            </div>
-                            <div class="status-chip">
-                                <strong>Resolved</strong>
-                                <span>100%</span>
+                            <div class="hero-footer">
+                                <div class="status-chip">
+                                    <strong>Live Projects</strong>
+                                    <span>12 active</span>
+                                </div>
+                                <div class="status-chip">
+                                    <strong>Project Signal</strong>
+                                    <span>Active</span>
+                                </div>
+                                <div class="status-chip">
+                                    <strong>Team Ready</strong>
+                                    <span>Available</span>
+                                </div>
+                                <div class="status-chip">
+                                    <strong>Resolved</strong>
+                                    <span>100%</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -648,7 +740,8 @@
                     <div>
                         <div class="section-tag">03 — Selected Projects</div>
                         <h2 class="section-title">Featured Code Works</h2>
-                        <p class="section-description">A collection of my development journey, showcasing full stack capabilities,
+                        <p class="section-description">A collection of my development journey, showcasing full stack
+                            capabilities,
                             structured logic, and the evolution of my technical craft.</p>
                     </div>
                     <a class="button-outline" href="code works.html">View All Projects</a>
@@ -680,7 +773,8 @@
                     <div>
                         <div class="section-tag">05 — Technical strengths</div>
                         <h2 class="section-title">Engineered for high-performance logic.</h2>
-                        <p class="section-description">Core technical capabilities that support large-scale applications,
+                        <p class="section-description">Core technical capabilities that support large-scale
+                            applications,
                             from client-side interaction to backend architecture and AI-assisted development.</p>
                     </div>
                 </div>
@@ -688,7 +782,8 @@
                     <article class="capability-card">
                         <div class="project-meta">Full Stack</div>
                         <h3>End-to-end engineering</h3>
-                        <p>Building interfaces and server systems together for smooth, maintainable application flows.</p>
+                        <p>Building interfaces and server systems together for smooth, maintainable application flows.
+                        </p>
                     </article>
                     <article class="capability-card">
                         <div class="project-meta">Problem Solver</div>
@@ -698,7 +793,8 @@
                     <article class="capability-card">
                         <div class="project-meta">Languages</div>
                         <h3>6+ programming languages</h3>
-                        <p>Adaptable across JavaScript, TypeScript, Node.js, Python, SQL, and modern front-end stacks.</p>
+                        <p>Adaptable across JavaScript, TypeScript, Node.js, Python, SQL, and modern front-end stacks.
+                        </p>
                     </article>
                     <article class="capability-card">
                         <div class="project-meta">Internship</div>
@@ -713,7 +809,8 @@
                     <article class="capability-card">
                         <div class="project-meta">React & CSS</div>
                         <h3>Interface craftsmanship</h3>
-                        <p>Creating responsive visual experiences using modern front-end frameworks and styling systems.</p>
+                        <p>Creating responsive visual experiences using modern front-end frameworks and styling systems.
+                        </p>
                     </article>
                 </div>
             </section>
@@ -721,7 +818,8 @@
             <section class="cta-strip">
                 <div>
                     <h2>Let's build something extraordinary together.</h2>
-                    <p style="margin: 16px 0 0; color: var(--muted); max-width: 620px;">If you have a project, idea, or collaboration in mind, I’m ready to help turn it into a polished,
+                    <p style="margin: 16px 0 0; color: var(--muted); max-width: 620px;">If you have a project, idea, or
+                        collaboration in mind, I’m ready to help turn it into a polished,
                         production-ready solution.</p>
                 </div>
                 <a class="button-solid" href="contact.html">Contact Abhijit</a>
@@ -756,45 +854,136 @@
             </div>
         </main>
     </div>
-  <script>
-  (function() {
-    function isLocalLink(href) {
-      return href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:') && !/^https?:\/\//i.test(href);
-    }
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 
-    function fadeNavigate(target) {
-      document.body.classList.remove('is-visible');
-      setTimeout(function() {
-        window.location.href = target;
-      }, 220);
-    }
+        const container = document.querySelector('.full-container');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    window.addEventListener('DOMContentLoaded', function() {
-      document.body.classList.add('is-visible');
-      document.querySelectorAll('a[href]').forEach(function(link) {
-        var href = link.getAttribute('href');
-        if (!isLocalLink(href)) {
-          return;
+        if (container && !prefersReducedMotion) {
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.set(0, 0, 7);
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+            const pointLight = new THREE.PointLight(0x00e5c8, 18, 20, 1.5);
+            pointLight.position.set(2, 2.5, 4);
+            scene.add(pointLight);
+
+            // Create a single outer wireframe box and an inner content panel.
+            const group = new THREE.Group();
+
+            // Outer wireframe box (acts as the 'cube' shell)
+            const outerSize = 3.2;
+            const boxGeom = new THREE.BoxGeometry(outerSize, outerSize, outerSize);
+            const edges = new THREE.EdgesGeometry(boxGeom);
+            const lineMat = new THREE.LineBasicMaterial({ color: 0x00e5c8, linewidth: 2, transparent: true, opacity: 0.9 });
+            const outerWire = new THREE.LineSegments(edges, lineMat);
+            outerWire.position.set(0, 0, 0);
+            group.add(outerWire);
+
+            // Inner content panel using a canvas texture to show labels
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024;
+            canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
+            // Draw background
+            ctx.fillStyle = 'rgba(10,16,22,0.95)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Draw some content labels
+            ctx.fillStyle = '#00e5c8';
+            ctx.font = '56px "IBM Plex Mono", monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText('PROJECTS ONLINE', canvas.width / 2, 220);
+            ctx.fillStyle = '#cfeee6';
+            ctx.font = '36px "Inter", sans-serif';
+            ctx.fillText('CHENNAI BASED · CLEAN CODE', canvas.width / 2, 320);
+            ctx.fillText('SCALABLE · AGILE', canvas.width / 2, 380);
+            ctx.fillStyle = 'rgba(255,255,255,0.06)';
+            ctx.fillRect(160, 440, canvas.width - 320, 16);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.needsUpdate = true;
+
+            const panelGeom = new THREE.PlaneGeometry(2.2, 2.2);
+            const panelMat = new THREE.MeshStandardMaterial({ map: texture, side: THREE.DoubleSide, metalness: 0.1, roughness: 0.5 });
+            const innerPanel = new THREE.Mesh(panelGeom, panelMat);
+            innerPanel.position.set(0, 0, 0);
+            group.add(innerPanel);
+
+            scene.add(group);
+            const resize = () => {
+                const { width, height } = container.getBoundingClientRect();
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            };
+
+            window.addEventListener('resize', resize);
+
+            const clock = new THREE.Clock();
+            const render = () => {
+                const elapsed = clock.getElapsedTime();
+                // Rotate the whole group
+                group.rotation.y = elapsed * 0.35;
+                group.rotation.x = Math.sin(elapsed * 0.5) * 0.12;
+                // Make the inner panel spin slightly faster for visual interest
+                if (innerPanel) innerPanel.rotation.y = elapsed * 0.9;
+                pointLight.intensity = 13 + Math.sin(elapsed * 2) * 4;
+                renderer.render(scene, camera);
+                requestAnimationFrame(render);
+            };
+
+            resize();
+            render();
         }
-        link.addEventListener('click', function(event) {
-          event.preventDefault();
-          var target = link.href;
-          if (target === window.location.href) {
-            return;
-          }
-          fadeNavigate(target);
-        });
-      });
-      document.addEventListener('click', function(event) {
-        var item = event.target.closest('[data-href]');
-        if (item && item.dataset.href && isLocalLink(item.dataset.href)) {
-          event.preventDefault();
-          fadeNavigate(item.dataset.href);
-        }
-      });
-    });
-  })();
-  </script>
+    </script>
+    <script>
+        (function () {
+            function isLocalLink(href) {
+                return href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:') && !href.startsWith('javascript:') && !/^https?:\/\//i.test(href);
+            }
+
+            function fadeNavigate(target) {
+                document.body.classList.remove('is-visible');
+                setTimeout(function () {
+                    window.location.href = target;
+                }, 50);
+            }
+
+            window.addEventListener('DOMContentLoaded', function () {
+                setTimeout(function () {
+                    document.body.classList.add('is-visible');
+                }, 50);
+                document.querySelectorAll('a[href]').forEach(function (link) {
+                    var href = link.getAttribute('href');
+                    if (!isLocalLink(href)) {
+                        return;
+                    }
+                    link.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        var target = link.href;
+                        if (target === window.location.href) {
+                            return;
+                        }
+                        fadeNavigate(target);
+                    });
+                });
+                document.addEventListener('click', function (event) {
+                    var item = event.target.closest('[data-href]');
+                    if (item && item.dataset.href && isLocalLink(item.dataset.href)) {
+                        event.preventDefault();
+                        fadeNavigate(item.dataset.href);
+                    }
+                });
+            });
+        })();
+    </script>
 </body>
 
 </html>

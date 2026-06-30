@@ -41,11 +41,13 @@
             font-family: var(--font-family-body);
             padding-top: 100px;
             opacity: 0;
-            transition: opacity 0.28s ease;
+            transform: translateY(8px);
+            transition: opacity 0.05s ease, transform 0.05s ease;
         }
 
         body.is-visible {
             opacity: 1;
+            transform: translateY(0);
         }
 
         a {
@@ -100,6 +102,35 @@
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+
+        .page-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 24px 48px 40px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 24px;
+        }
+
+        .page-footer a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* initial hidden state for reveal animation */
+        .strength-card .card-icon,
+        .strength-card .card-title,
+        .strength-card .card-desc,
+        .strength-card .card-footer {
+            opacity: 0;
+            transform: translateX(-10px);
         }
 
         .button-outline,
@@ -245,6 +276,8 @@
             flex-direction: column;
             justify-content: space-between;
             min-height: 320px;
+            position: relative;
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
         }
 
         .card-top-bar {
@@ -273,6 +306,18 @@
             justify-content: center;
             margin-bottom: 22px;
             color: var(--text-secondary);
+        }
+
+        .square {
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            transform-origin: center center;
+            will-change: transform;
         }
 
         .card-title {
@@ -343,21 +388,42 @@
             border: 1px solid var(--text-secondary);
         }
 
+        /* Glow layer */
+        .strength-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            pointer-events: none;
+            box-shadow: 0 30px 60px rgba(0, 229, 200, 0);
+            transition: box-shadow 0.45s ease, opacity 0.45s ease;
+            opacity: 0;
+        }
+
+        .strength-card.glow::after {
+            box-shadow: 0 40px 80px rgba(0, 229, 200, 0.12), 0 0 48px rgba(0, 229, 200, 0.06) inset;
+            opacity: 1;
+        }
+
         @keyframes ticker {
             from {
                 transform: translateX(0);
             }
 
             to {
-                transform: translateX(-50%);
+                transform: translateX(-100%);
             }
         }
 
-        footer {
-            padding: 24px 0 40px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.55);
-            font-size: 12px;
+        body {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.05s ease, transform 0.05s ease;
+        }
+
+        body.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 980px) {
@@ -428,7 +494,8 @@
                         <span class="card-signal-label">SIGNAL</span>
                     </div>
                     <div class="card-icon">
-                        <iconify-icon icon="lucide:compass" style="font-size: 16px; color: #7a9bb5"></iconify-icon>
+                        <div class="square"><iconify-icon icon="lucide:compass"
+                                style="font-size: 16px; color: #7a9bb5"></iconify-icon></div>
                     </div>
                     <h3 class="card-title">Full Stack<br />Developer</h3>
                     <p class="card-desc">
@@ -447,7 +514,8 @@
                         <span class="card-signal-label">SIGNAL</span>
                     </div>
                     <div class="card-icon">
-                        <iconify-icon icon="lucide:compass" style="font-size: 16px; color: #7a9bb5"></iconify-icon>
+                        <div class="square"><iconify-icon icon="lucide:compass"
+                                style="font-size: 16px; color: #7a9bb5"></iconify-icon></div>
                     </div>
                     <h3 class="card-title">Critical Problem<br />Solver</h3>
                     <p class="card-desc">
@@ -466,7 +534,8 @@
                         <span class="card-signal-label">SIGNAL</span>
                     </div>
                     <div class="card-icon">
-                        <iconify-icon icon="lucide:compass" style="font-size: 16px; color: #7a9bb5"></iconify-icon>
+                        <div class="square"><iconify-icon icon="lucide:compass"
+                                style="font-size: 16px; color: #7a9bb5"></iconify-icon></div>
                     </div>
                     <h3 class="card-title">6+ Programming<br />Languages</h3>
                     <p class="card-desc">
@@ -487,7 +556,8 @@
                         <span class="card-signal-label">SIGNAL</span>
                     </div>
                     <div class="card-icon">
-                        <iconify-icon icon="lucide:compass" style="font-size: 16px; color: #7a9bb5"></iconify-icon>
+                        <div class="square"><iconify-icon icon="lucide:compass"
+                                style="font-size: 16px; color: #7a9bb5"></iconify-icon></div>
                     </div>
                     <h3 class="card-title">Hands-on Intern Experience</h3>
                     <p class="card-desc">
@@ -559,8 +629,13 @@
         </div>
     </main>
 
-    <footer>
-        © 2026 Abhijit Portfolio · Based in Chennai, Tamil Nadu
+    <footer class="page-footer">
+        <span>© 2026 Abhijit Portfolio</span>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+            <a href="home.html">Home</a>
+            <a href="code works.html">Projects</a>
+            <a href="contact.html">Contact</a>
+        </div>
     </footer>
 
     <script>
@@ -573,11 +648,13 @@
                 document.body.classList.remove('is-visible');
                 setTimeout(function () {
                     window.location.href = target;
-                }, 220);
+                }, 50);
             }
 
             window.addEventListener('DOMContentLoaded', function () {
-                document.body.classList.add('is-visible');
+                setTimeout(function () {
+                    document.body.classList.add('is-visible');
+                }, 50);
                 document.querySelectorAll('a[href]').forEach(function (link) {
                     var href = link.getAttribute('href');
                     if (!isLocalLink(href)) {
@@ -594,6 +671,86 @@
                 });
             });
         })();
+    </script>
+    <script type="module">
+        import anime from 'https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.es.js';
+
+        const cards = document.querySelectorAll('.strength-card');
+
+        function animateCard(card, index) {
+            // add glow class when animation starts
+            card.classList.add('glow');
+            const icon = card.querySelector('.card-icon');
+            const title = card.querySelector('.card-title');
+            const desc = card.querySelector('.card-desc');
+            const footer = card.querySelector('.card-footer');
+
+            anime({
+                targets: icon,
+                translateX: ['0rem', '1.2rem'],
+                scale: [1, 1.05],
+                rotate: '0.08turn',
+                opacity: [0, 1],
+                duration: 600,
+                easing: 'easeOutCubic',
+                delay: index * 100
+            });
+
+            anime({
+                targets: title,
+                translateX: ['-0.6rem', '0rem'],
+                opacity: [0, 1],
+                duration: 700,
+                easing: 'easeOutCubic',
+                delay: index * 100 + 80
+            });
+
+            anime({
+                targets: desc,
+                translateX: ['-0.4rem', '0rem'],
+                opacity: [0, 1],
+                duration: 700,
+                easing: 'easeOutCubic',
+                delay: index * 100 + 140
+            });
+
+            anime({
+                targets: footer,
+                opacity: [0, 1],
+                duration: 600,
+                easing: 'easeOutCubic',
+                delay: index * 100 + 200
+            });
+        }
+
+        if ('IntersectionObserver' in window) {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const idx = Array.from(cards).indexOf(entry.target);
+                    if (entry.isIntersecting) {
+                        animateCard(entry.target, idx);
+                    } else {
+                        // Reset inner elements so animation can run again
+                        const icon = entry.target.querySelector('.card-icon');
+                        const title = entry.target.querySelector('.card-title');
+                        const desc = entry.target.querySelector('.card-desc');
+                        const footer = entry.target.querySelector('.card-footer');
+                        [icon, title, desc, footer].forEach(el => {
+                            if (!el) return;
+                            el.style.opacity = '0';
+                            el.style.transform = 'translateX(-10px)';
+                        });
+                        // remove glow so it can reappear
+                        entry.target.classList.remove('glow');
+                    }
+                });
+            }, { threshold: 0.18 });
+
+            cards.forEach(c => obs.observe(c));
+        } else {
+            // Fallback: replay on manual scroll by listening to focus/blur
+            cards.forEach((c, i) => animateCard(c, i));
+        }
     </script>
 </body>
 

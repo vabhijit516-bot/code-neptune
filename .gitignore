@@ -1,0 +1,16 @@
+# Ignore runtime dependencies
+node_modules/
+
+# Ignore Python virtual environments
+.venv/
+
+# Local environment files
+.DS_Store
+Thumbs.db
+
+# VS Code settings and history
+.vscode/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
